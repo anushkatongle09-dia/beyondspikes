@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>About Me · Anushka Tongle</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root {
+      --brand-primary: #f97316;
+      --brand-text: #1f2937;
+      --brand-muted: #6b7280;
+      --brand-bg: #f3f4f6;
+      --brand-white: #ffffff;
+      --brand-border: #fed7aa;
+      --band-blue: #1d4ed8;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--brand-bg);
+      color: var(--brand-text);
+      line-height: 1.65;
+    }
+    .site-top {
+      background: var(--brand-white);
+      border-bottom: 1px solid var(--brand-border);
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .site-top a.home-link {
+      font-weight: 600;
+      color: var(--brand-primary);
+      text-decoration: none;
+    }
+    .site-top a.home-link:hover {
+      text-decoration: underline;
+    }
+    .site-top .logo-link {
+      display: flex;
+      align-items: center;
+    }
+    .site-top .logo-link img {
+      max-height: 56px;
+      width: auto;
+      object-fit: contain;
+    }
+    main {
+      max-width: 52rem;
+      margin: 0 auto;
+      padding: 2rem 1.25rem 3.5rem;
+    }
+    main h1 {
+      font-size: clamp(1.75rem, 4vw, 2.25rem);
+      margin: 0 0 0.35rem;
+      line-height: 1.2;
+      color: var(--band-blue);
+    }
+    .subtitle {
+      font-size: 1.05rem;
+      color: var(--brand-muted);
+      margin: 0 0 1.5rem;
+    }
+    .intro-block {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      align-items: flex-start;
+      margin-bottom: 2rem;
+    }
+    .intro-block .intro-text {
+      flex: 1 1 280px;
+      min-width: 0;
+    }
+    .intro-block figure {
+      margin: 0;
+      flex: 0 1 260px;
+      max-width: 100%;
+    }
+    .intro-block img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
+      display: block;
+    }
+    .intro-block figcaption {
+      font-size: 0.85rem;
+      color: var(--brand-muted);
+      margin-top: 0.5rem;
+      text-align: center;
+    }
+    .piano-section {
+      margin: 2rem 0;
+    }
+    .piano-section figure {
+      margin: 1rem 0 0;
+    }
+    .piano-section img {
+      width: 100%;
+      max-width: 520px;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
+      display: block;
+    }
+    .piano-section figcaption {
+      font-size: 0.85rem;
+      color: var(--brand-muted);
+      margin-top: 0.5rem;
+    }
+    main h2 {
+      font-size: 1.35rem;
+      margin: 2rem 0 0.75rem;
+      color: var(--brand-text);
+      border-bottom: 2px solid var(--brand-border);
+      padding-bottom: 0.35rem;
+    }
+    main h3 {
+      font-size: 1.05rem;
+      margin: 1.25rem 0 0.5rem;
+      color: var(--brand-text);
+    }
+    main p {
+      margin: 0 0 1rem;
+      color: var(--brand-text);
+    }
+    main ul {
+      margin: 0 0 1rem;
+      padding-left: 1.35rem;
+    }
+    main li {
+      margin-bottom: 0.5rem;
+    }
+    main li strong {
+      color: var(--brand-text);
+    }
+    .contact-line {
+      font-size: 0.95rem;
+      color: var(--brand-muted);
+      margin-bottom: 1.5rem;
+    }
+    .contact-line a {
+      color: var(--band-blue);
+    }
+    footer {
+      text-align: center;
+      padding: 1.25rem;
+      font-size: 0.85rem;
+      color: var(--brand-muted);
+      border-top: 1px solid var(--brand-border);
+      background: var(--brand-white);
+    }
+  </style>
+</head>
+<body>
+  <div class="site-top">
+    <a class="logo-link" href="index.html" aria-label="Home">
+      <img src="images/logo.png" alt="Beyond The Spikes">
+    </a>
+    <a class="home-link" href="index.html">← Back to home</a>
+  </div>
+
+  <main>
+    <h1>About Me</h1>
+    <p class="subtitle">Anushka Tongle · Rising junior · Canyon Crest Academy (Class of 2028)</p>
+    <p class="contact-line">
+      <a href="mailto:anushkatongle09@gmail.com">anushkatongle09@gmail.com</a>
+      · (858) 649-0214
+    </p>
+
+    <div class="intro-block">
+      <div class="intro-text">
+        <p>
+          Hi — I’m <strong>Anushka Tongle</strong>, a rising junior at <strong>Canyon Crest Academy (CCA)</strong> in San Diego.
+          I care about how science, health, and everyday choices come together in real life: in the classroom, in competitions,
+          through volunteering, and at home with my family as we learn from continuous glucose monitoring and thoughtful meals.
+        </p>
+        <p>
+          At school I keep a strong academic focus (4.0 unweighted / 4.5 weighted GPA) while taking challenging coursework in
+          <strong>biology</strong>, <strong>AP Chemistry</strong>, and <strong>Biotechnology 1</strong>. I’m active in
+          <strong>Health Occupations Students of America (HOSA)</strong> and <strong>Science Olympiad</strong>, where I’ve enjoyed
+          going deep on subjects like ecology and anatomy &amp; physiology — and coaching younger students at Pacific Trails Middle School.
+        </p>
+      </div>
+      <figure>
+        <img src="images/AnushkaTongle.jpg" alt="Portrait of Anushka Tongle">
+        <figcaption>At Canyon Crest Academy</figcaption>
+      </figure>
+    </div>
+
+    <h2 id="science-health">Science, health, and competitions</h2>
+    <p>
+      I like turning curiosity into results. In Science Olympiad I’ve earned regional and state recognition, including
+      <strong>1st place in Ecology</strong> at regionals and state, and <strong>2nd place in Anatomy &amp; Physiology</strong> at regionals.
+      Through HOSA I’ve qualified for the California state competition in <strong>2025</strong> and <strong>2026</strong>.
+    </p>
+    <p>
+      Outside of competitions, I’ve built experience in healthcare settings: volunteering in oncology at Scripps La Jolla Memorial Hospital,
+      supporting patients at the VA hospital (including playing piano for people with spinal cord injury), and helping with triage and
+      clinic workflow on a Jamaica medical mission with Nova Southeastern University — where I’ve also contributed to
+      <strong>electronic medical record</strong> work to improve how patient information is collected.
+    </p>
+
+    <h2 id="music-piano">Music and piano</h2>
+    <p>
+      Piano has been a long-term part of my life — I completed <strong>10 years in MTAC with state honors</strong>. I compete through the
+      Southwestern Youth Music Festival, earning <strong>4th place in the Chopin category</strong> and <strong>3rd place in the Baroque category</strong>.
+      Music isn’t only performance for me: it’s also a way to connect with people, whether that’s playing for patients or supporting activities
+      for older adults living with Alzheimer’s disease.
+    </p>
+    <div class="piano-section">
+      <figure>
+        <img src="images/AnushkaWithPiano.jpg" alt="Anushka at the piano">
+        <figcaption>Sharing my passion for piano — practice, performance, and community.</figcaption>
+      </figure>
+    </div>
+
+    <h2 id="service">Community service highlights</h2>
+    <ul>
+      <li><strong>Scripps La Jolla Memorial Hospital</strong> — Oncology unit volunteer (Jan 2026–present): non-clinical support for oncology patients.</li>
+      <li><strong>Pacific Trails Middle School Science Olympiad</strong> — Coach for Anatomy &amp; Physiology (2025–present) and Road Scholar (2024–2025).</li>
+      <li><strong>Nova Southeastern University Jamaica Medical Mission</strong> — Volunteer (2024–present): triage support (vitals including blood pressure and blood sugar).</li>
+      <li><strong>VA Hospital</strong> — Nursing escort volunteer (Summer 2025): patient transport, comfort, and piano for spinal cord injury patients.</li>
+      <li><strong>Alzheimer’s San Diego</strong> — Social activities volunteer (Summer 2025): music activities and soothing piano for participants.</li>
+      <li><strong>Refugee Health Alliance</strong> — Pharmacy support (2025) for people living in refugee camps.</li>
+      <li><strong>San Diego Food Bank</strong> — Volunteer (2024).</li>
+    </ul>
+
+    <h2 id="credentials">Training &amp; certifications</h2>
+    <ul>
+      <li><strong>Stop the Bleed</strong> certification (2025)</li>
+      <li><strong>BLS</strong> (Basic Life Support) certification (2025)</li>
+    </ul>
+
+    <h2 id="whats-next">What’s next</h2>
+    <p>
+      I’m excited to keep building skills at the intersection of <strong>STEM</strong>, <strong>health</strong>, and <strong>community impact</strong> —
+      and to keep contributing to Beyond The Spikes with honest, practical lessons from our own monitoring and meal experiments.
+    </p>
+  </main>
+
+  <footer>
+    © 2026 Beyond The Spikes · All rights reserved.
+  </footer>
+</body>
+</html>

@@ -2,159 +2,568 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Wellness Hub</title>
+  <title>Understanding Blood Sugar</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
+    :root {
+      --brand-primary: #f97316;
+      --brand-primary-dark: #ea580c;
+      --brand-text: #1f2937;
+      --brand-muted: #6b7280;
+      --brand-bg: #f3f4f6;
+      --brand-white: #ffffff;
+      --brand-border: #fed7aa;
+      --band-blue: #1d4ed8;
+      --band-green: #16a34a;
+      --sticky-header-estimate: 260px;
+    }
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: var(--sticky-header-estimate);
+    }
     body {
       margin: 0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #f5f5f7;
-      color: #111827;
+      background: var(--brand-bg);
+      color: var(--brand-text);
     }
     header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 16px 32px;
-      background: white;
+      background: var(--brand-white);
       box-shadow: 0 1px 4px rgba(0,0,0,0.06);
       position: sticky;
       top: 0;
       z-index: 10;
+      overflow: visible;
+    }
+    .top-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 12px 32px 8px;
+      background: var(--brand-white);
+      position: relative;
     }
     .logo {
       display: flex;
       align-items: center;
+    }
+    .logo-img {
+      width: 569px;
+      height: 190px;
+      object-fit: contain;
+      object-position: left center;
+      border-radius: 8px;
+      display: block;
+    }
+    .voice-tool-wrap {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-46%, -50%);
+      display: flex;
+      justify-content: center;
+      z-index: 2;
+      pointer-events: auto;
+    }
+    .voice-tool {
+      display: inline-flex;
+      align-items: center;
       gap: 10px;
-      font-weight: 600;
-      font-size: 1.1rem;
-    }
-    .logo-mark {
-      width: 32px;
-      height: 32px;
+      padding: 10px 18px;
+      border: 3px solid var(--brand-primary);
       border-radius: 999px;
-      background: linear-gradient(135deg, #22c55e, #0ea5e9);
-    }
-    nav a {
-      margin-left: 16px;
+      background: var(--brand-white);
+      color: #000;
+      font-weight: 700;
       text-decoration: none;
-      color: #374151;
-      font-size: 0.95rem;
+      box-shadow: 0 4px 12px rgba(249, 115, 22, 0.18);
+      white-space: nowrap;
     }
-    nav a:hover {
-      color: #0ea5e9;
+    .mic-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      border: 2px solid var(--brand-primary);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      line-height: 1;
     }
-    .hero {
+    .top-right-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .language-select {
+      font-size: 0.94rem;
+      padding: 9px 15px;
+      border: 3px solid var(--brand-primary);
+      border-radius: 2px;
+      background: transparent;
+      color: #000;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+    .donate-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 4px;
+    }
+    .donate-btn {
+      display: inline-block;
+      padding: 9px 15px;
+      font-size: 0.94rem;
+      text-decoration: none;
+      border-radius: 2px;
+      font-weight: 600;
+      border: 3px solid var(--brand-primary);
+      background: transparent;
+      color: #000;
+    }
+    .menu-bar {
+      border-top: 1px solid var(--brand-border);
+      border-bottom: 1px solid var(--brand-border);
+      background: var(--brand-white);
+      padding: 6px 12px 10px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: stretch;
+      gap: 2px 0;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .menu-bar .nav-slot {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
       position: relative;
-      min-height: 80vh;
+      z-index: 1;
+    }
+    .menu-bar .nav-slot:hover {
+      z-index: 40;
+    }
+    .nav-dropdown {
+      position: relative;
+      width: 100%;
+      text-align: center;
+    }
+    .nav-dropdown-trigger {
+      appearance: none;
+      margin: 0;
+      width: 100%;
+      box-sizing: border-box;
+      cursor: pointer;
+      padding: 8px 6px;
+      font: inherit;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--brand-text);
+      background: transparent;
+      border: none;
+      user-select: none;
+      text-align: center;
+    }
+    .nav-dropdown-trigger::after {
+      content: " ▾";
+      font-size: 0.65em;
+      opacity: 0.75;
+    }
+    .nav-dropdown:hover > .nav-dropdown-trigger,
+    .nav-dropdown:focus-within > .nav-dropdown-trigger {
+      color: var(--brand-primary);
+    }
+    .nav-dropdown-menu {
+      display: none;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 100%;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
+      margin: 0;
+      padding: 6px 0;
+      list-style: none;
+      background: var(--brand-white);
+      border: 1px solid var(--brand-border);
+      border-radius: 6px;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.12);
+      z-index: 25;
+      text-align: left;
+    }
+    .nav-dropdown:hover .nav-dropdown-menu,
+    .nav-dropdown:focus-within .nav-dropdown-menu {
+      display: block;
+    }
+    .nav-dropdown-menu a {
+      display: block;
+      padding: 8px 14px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--brand-text);
+      text-decoration: none;
+    }
+    .nav-dropdown-menu a:hover {
+      background: var(--brand-bg);
+      color: var(--brand-primary);
+    }
+    .nav-link-single {
       display: flex;
       align-items: center;
       justify-content: center;
-      overflow: hidden;
-    }
-    .hero-grid {
-      position: absolute;
-      inset: 0;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-      opacity: 0.85;
-    }
-    .hero-photo {
-      background-size: cover;
-      background-position: center;
-      filter: brightness(0.75);
-    }
-    .hero-photo:nth-child(1) { background-image: url("images/happy-1.jpg"); }
-    .hero-photo:nth-child(2) { background-image: url("images/happy-2.jpg"); }
-    .hero-photo:nth-child(3) { background-image: url("images/happy-3.jpg"); }
-    .hero-overlay {
-      position: relative;
-      z-index: 1;
-      max-width: 720px;
-      padding: 32px;
-      background: rgba(17,24,39,0.70);
-      color: white;
-      border-radius: 16px;
-      backdrop-filter: blur(10px);
-      text-align: center;
-      margin: 16px;
-    }
-    .hero-overlay h1 {
-      margin-top: 0;
-      font-size: 2.4rem;
-    }
-    .hero-overlay p {
-      margin: 12px 0 24px;
-      font-size: 1.05rem;
-      line-height: 1.6;
-    }
-    .hero-overlay .cta {
-      display: inline-block;
-      padding: 10px 20px;
-      border-radius: 999px;
-      background: #22c55e;
-      color: #0f172a;
+      padding: 8px 6px;
+      font-size: 0.82rem;
       font-weight: 600;
+      color: var(--brand-text);
       text-decoration: none;
+      width: 100%;
+      box-sizing: border-box;
     }
-    .hero-overlay .cta:hover {
-      background: #16a34a;
+    .nav-link-single:hover {
+      color: var(--brand-primary);
+    }
+    .page-content {
+      width: 100%;
+      overflow-x: hidden;
+    }
+    .tri-columns {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0;
+      padding: 0;
+      align-items: stretch;
+      box-sizing: border-box;
+      min-height: max(560px, calc(100svh - var(--sticky-header-estimate)));
+      scroll-margin-top: var(--sticky-header-estimate);
+      background: transparent;
+      width: 100%;
+    }
+    .content-band {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding: clamp(18px, 3vw, 26px);
+      box-sizing: border-box;
+      min-height: 0;
+    }
+    .content-band.band-blue {
+      background: var(--band-blue);
+      color: #fff;
+    }
+    .content-band.band-green {
+      background: var(--band-green);
+      color: #fff;
+    }
+    .tri-columns > .content-band {
+      border-radius: 0;
+      box-shadow: none;
+    }
+    .tri-columns > .content-band:first-child {
+      border-top-left-radius: 8px;
+      border-bottom-left-radius: 8px;
+    }
+    .tri-columns > .content-band:last-child {
+      border-top-right-radius: 8px;
+      border-bottom-right-radius: 8px;
+    }
+    .band-inner {
+      width: 100%;
+      max-width: 100%;
+      text-align: center;
+    }
+    .content-band h2 {
+      margin: 0 0 1rem;
+      font-size: clamp(1.2rem, 2.8vw, 1.65rem);
+      font-weight: 700;
+      line-height: 1.15;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.12);
+    }
+    .content-band .band-lead {
+      margin: 0 auto 1rem;
+      max-width: 100%;
+      font-size: clamp(0.9rem, 1.75vw, 1rem);
+      line-height: 1.65;
+      color: rgba(255,255,255,0.88);
+    }
+    .pattern-img {
+      display: block;
+      width: 98.325%;
+      max-width: none;
+      height: auto;
+      margin: 0;
+      position: relative;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 10px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+    }
+    #blood-sugar-patterns.content-band {
+      overflow-x: visible;
+    }
+    .tri-windows {
+      min-height: min(70vh, 640px);
+    }
+    .tri-window {
+      background: var(--brand-white);
+      border: 3px solid var(--brand-primary);
+      border-radius: 0;
+      border-left-width: 0;
+      padding: clamp(18px, 3vw, 26px);
+      box-shadow: none;
+      display: flex;
+      flex-direction: column;
+    }
+    .tri-columns .tri-window:first-child {
+      border-left-width: 3px;
+      border-top-left-radius: 8px;
+      border-bottom-left-radius: 8px;
+    }
+    .tri-columns .tri-window:last-child {
+      border-color: var(--band-green);
+      border-top-right-radius: 8px;
+      border-bottom-right-radius: 8px;
+    }
+    .tri-window h3 {
+      margin: 0 0 12px;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--brand-text);
+    }
+    .tri-window p {
+      margin: 0;
+      flex: 1;
+      font-size: 0.95rem;
+      line-height: 1.55;
+      color: var(--brand-muted);
     }
     footer {
       text-align: center;
       padding: 16px;
       font-size: 0.85rem;
-      color: #6b7280;
+      color: var(--brand-muted);
     }
     @media (max-width: 768px) {
-      .hero-grid {
-        grid-template-columns: 1fr;
+      .top-bar {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 10px 16px 6px;
       }
-      .hero-overlay h1 {
-        font-size: 1.8rem;
+      .logo-img {
+        width: 345px;
+        height: 130px;
+      }
+      .voice-tool-wrap {
+        position: static;
+        transform: none;
+        order: 2;
+        width: 100%;
+        margin: 4px 0;
+      }
+      .logo {
+        order: 1;
+      }
+      .top-right-controls {
+        order: 3;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+      }
+      .voice-tool {
+        font-size: 0.85rem;
+      }
+      .language-select {
+        font-size: 0.8rem;
+        padding: 5px 8px;
+      }
+      .menu-bar {
+        padding: 8px 10px;
+        gap: 4px 0;
+      }
+      .menu-bar .nav-slot {
+        flex: 1 1 calc(50% - 4px);
+        min-width: 140px;
+      }
+      :root {
+        --sticky-header-estimate: 340px;
+      }
+    }
+    @media (max-width: 520px) {
+      .menu-bar .nav-slot {
+        flex: 1 1 100%;
+      }
+    }
+    @media (max-width: 900px) {
+      .tri-columns {
+        grid-template-columns: 1fr;
+        min-height: 0;
+        gap: clamp(14px, 3vw, 20px);
+        padding: clamp(16px, 4vw, 24px);
+        background: var(--brand-bg);
+      }
+      .tri-windows {
+        min-height: 0;
+      }
+      .tri-columns > .content-band {
+        border-radius: 8px;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.07);
+      }
+      .tri-columns > .tri-window {
+        border-left-width: 3px;
+        border-radius: 8px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
       }
     }
   </style>
 </head>
 <body>
   <header>
-    <div class="logo">
-      <div class="logo-mark"></div>
-      <span>Wellness Hub</span>
+    <div class="top-bar">
+      <div class="logo">
+        <img class="logo-img" src="images/logo.png" alt="Understanding Blood Sugar">
+      </div>
+      <div class="voice-tool-wrap">
+        <a class="voice-tool" href="#" aria-label="Talk to Spike Reducer by voice">
+          <span class="mic-icon" aria-hidden="true">🎤</span>
+          <span>Talk To Spike Reducer</span>
+        </a>
+      </div>
+      <div class="top-right-controls">
+        <div class="donate-actions">
+          <a class="donate-btn" href="contact.html">Donate</a>
+        </div>
+        <select class="language-select" aria-label="Select language">
+          <option value="en-us">US English</option>
+          <option value="es-us">US Spanish</option>
+        </select>
+      </div>
     </div>
-    <nav>
-      <a href="about.html">About</a>
-      <a href="video.html">Video</a>
-      <a href="insights.html">Insights</a>
-      <a href="wellness.html">Wellness</a>
-      <a href="tools.html">Tools</a>
-      <a href="collaborations.html">Collaborations</a>
-      <a href="contact.html">Contact</a>
+    <nav class="menu-bar" aria-label="Main navigation">
+      <div class="nav-slot">
+        <div class="nav-dropdown">
+          <button type="button" class="nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false">About</button>
+          <ul class="nav-dropdown-menu" role="menu">
+            <li role="none"><a href="about.html" role="menuitem">Motivation</a></li>
+            <li role="none"><a href="about_me.html" role="menuitem">About me</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="nav-slot">
+        <div class="nav-dropdown">
+          <button type="button" class="nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false">Awareness</button>
+          <ul class="nav-dropdown-menu" role="menu">
+            <li role="none"><a href="awareness-monitoring.html" role="menuitem">Monitoring Blood Glucose</a></li>
+            <li role="none"><a href="awareness-know-your-targets.html" role="menuitem">Know your targets</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="nav-slot">
+        <div class="nav-dropdown">
+          <button type="button" class="nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false">Tools</button>
+          <ul class="nav-dropdown-menu" role="menu">
+            <li role="none"><a href="tools-apps.html" role="menuitem">Apps</a></li>
+            <li role="none"><a href="tools-cgms.html" role="menuitem">CGMs</a></li>
+            <li role="none"><a href="tools-glucometers.html" role="menuitem">Glucometers</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="nav-slot">
+        <div class="nav-dropdown">
+          <button type="button" class="nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false">Tested Spikes</button>
+          <ul class="nav-dropdown-menu" role="menu">
+            <li role="none"><a href="tested-my-videos.html" role="menuitem">My Videos</a></li>
+            <li role="none"><a href="tested-plot-your-spikes.html" role="menuitem">Plot Your Spikes</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="nav-slot">
+        <div class="nav-dropdown">
+          <button type="button" class="nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false">Fuel &amp; Move</button>
+          <ul class="nav-dropdown-menu" role="menu">
+            <li role="none"><a href="fuel-recipes.html" role="menuitem">Recipes</a></li>
+            <li role="none"><a href="fuel-daily-exercises.html" role="menuitem">Daily exercises</a></li>
+            <li role="none"><a href="fuel-food-dos-donts.html" role="menuitem">Food — Dos &amp; Don&apos;ts</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="nav-slot">
+        <div class="nav-dropdown">
+          <button type="button" class="nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false">Community Outreach</button>
+          <ul class="nav-dropdown-menu" role="menu">
+            <li role="none"><a href="outreach-schools.html" role="menuitem">Schools</a></li>
+            <li role="none"><a href="outreach-old-age-centers.html" role="menuitem">Old Age Centers</a></li>
+            <li role="none"><a href="outreach-health-fairs.html" role="menuitem">Health Fairs</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="nav-slot">
+        <a class="nav-link-single" href="contact.html">Contact Me</a>
+      </div>
     </nav>
   </header>
 
-  <main class="hero">
-    <!-- Replace these image paths with your own photos of happy people -->
-    <div class="hero-grid">
-      <div class="hero-photo"></div>
-      <div class="hero-photo"></div>
-      <div class="hero-photo"></div>
-    </div>
+  <main class="page-content">
+    <section class="tri-columns" aria-label="Blood sugar overview">
+      <section id="blood-sugar-patterns" class="content-band band-blue" aria-labelledby="heading-patterns">
+        <div class="band-inner">
+          <h2 id="heading-patterns">Blood Sugar Patterns</h2>
+          <p class="band-lead">
+            Patterns in how glucose rises and falls after meals can reveal how your body responds to food and habits.
+            Use this chart as a reference as you explore your own rhythms.
+          </p>
+          <img class="pattern-img" src="images/SugarSpikes00.png" alt="Illustration comparing sharp versus gradual blood sugar curves after eating">
+        </div>
+      </section>
 
-    <section class="hero-overlay">
-      <h1>Connected minds, healthier lives</h1>
-      <p>
-        A space where people, ideas, and tools come together to support
-        everyday wellness — through evidence‑based insights, simple practices,
-        and meaningful collaborations.
-      </p>
-      <a class="cta" href="about.html">Explore the journey</a>
+      <section id="avoid-spikes" class="content-band band-green" aria-labelledby="heading-spikes">
+        <div class="band-inner">
+          <h2 id="heading-spikes">How to avoid Risks</h2>
+          <p class="band-lead">
+            Gentle strategies often help: pairing carbs with fiber and protein, steady meal timing when possible,
+            movement after meals, hydration, sleep, and working with care teams on medications when appropriate.
+          </p>
+        </div>
+      </section>
+    </section>
+
+    <section id="explore-more" class="tri-columns tri-windows" aria-label="Featured topics">
+      <article class="tri-window">
+        <h3>Everyday rhythms</h3>
+        <p>
+          Brief placeholder for habits, reminders, or links you add later—keep language aligned with what you publish on the site.
+        </p>
+      </article>
+      <article class="tri-window">
+        <h3>Learn & resources</h3>
+        <p>
+          Brief placeholder for articles, FAQs, downloads, or tools you curate next to enrich this row.
+        </p>
+      </article>
     </section>
   </main>
 
   <footer>
     © 2026 Wellness Hub · All rights reserved.
   </footer>
+  <script>
+    (function () {
+      document.querySelectorAll(".nav-dropdown").forEach(function (dd) {
+        var btn = dd.querySelector(".nav-dropdown-trigger");
+        if (!btn) return;
+        dd.addEventListener("mouseenter", function () {
+          btn.setAttribute("aria-expanded", "true");
+        });
+        dd.addEventListener("mouseleave", function () {
+          btn.setAttribute("aria-expanded", "false");
+        });
+      });
+    })();
+  </script>
 </body>
 </html>

@@ -2,97 +2,151 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>About · Wellness Hub</title>
+  <title>About Beyond The Spikes · Understanding Blood Sugar</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
+    :root {
+      --brand-primary: #f97316;
+      --brand-text: #1f2937;
+      --brand-muted: #6b7280;
+      --brand-bg: #f3f4f6;
+      --brand-white: #ffffff;
+      --brand-border: #fed7aa;
+      --band-blue: #1d4ed8;
+    }
+    * { box-sizing: border-box; }
     body {
       margin: 0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #f5f5f7;
-      color: #111827;
+      background: var(--brand-bg);
+      color: var(--brand-text);
+      line-height: 1.65;
     }
-    header {
+    .site-top {
+      background: var(--brand-white);
+      border-bottom: 1px solid var(--brand-border);
+      padding: 12px 24px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 16px 32px;
-      background: white;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-      position: sticky;
-      top: 0;
-      z-index: 10;
+      flex-wrap: wrap;
+      gap: 12px;
     }
-    .logo {
+    .site-top a.home-link {
+      font-weight: 600;
+      color: var(--brand-primary);
+      text-decoration: none;
+    }
+    .site-top a.home-link:hover {
+      text-decoration: underline;
+    }
+    .site-top .logo-link {
       display: flex;
       align-items: center;
-      gap: 10px;
-      font-weight: 600;
-      font-size: 1.1rem;
     }
-    .logo-mark {
-      width: 32px;
-      height: 32px;
-      border-radius: 999px;
-      background: linear-gradient(135deg, #22c55e, #0ea5e9);
-    }
-    nav a {
-      margin-left: 16px;
-      text-decoration: none;
-      color: #374151;
-      font-size: 0.95rem;
-    }
-    nav a:hover {
-      color: #0ea5e9;
+    .site-top .logo-link img {
+      max-height: 56px;
+      width: auto;
+      object-fit: contain;
     }
     main {
-      max-width: 960px;
-      margin: 32px auto;
-      padding: 0 16px 48px;
+      max-width: 52rem;
+      margin: 0 auto;
+      padding: 2rem 1.25rem 3.5rem;
     }
     main h1 {
-      font-size: 2rem;
-      margin-bottom: 12px;
+      font-size: clamp(1.75rem, 4vw, 2.25rem);
+      margin: 0 0 0.35rem;
+      line-height: 1.2;
+      color: var(--band-blue);
+    }
+    .subtitle {
+      font-size: 1.05rem;
+      color: var(--brand-muted);
+      margin: 0 0 2rem;
+    }
+    main h2 {
+      font-size: 1.35rem;
+      margin: 2rem 0 0.75rem;
+      color: var(--brand-text);
+      border-bottom: 2px solid var(--brand-border);
+      padding-bottom: 0.35rem;
+    }
+    main h3 {
+      font-size: 1.05rem;
+      margin: 1.25rem 0 0.5rem;
+      color: var(--brand-text);
     }
     main p {
-      line-height: 1.7;
-      color: #374151;
+      margin: 0 0 1rem;
+      color: var(--brand-text);
+    }
+    main ul {
+      margin: 0 0 1rem;
+      padding-left: 1.35rem;
+    }
+    main li {
+      margin-bottom: 0.5rem;
+    }
+    main li strong {
+      color: var(--brand-text);
     }
     footer {
       text-align: center;
-      padding: 16px;
+      padding: 1.25rem;
       font-size: 0.85rem;
-      color: #6b7280;
+      color: var(--brand-muted);
+      border-top: 1px solid var(--brand-border);
+      background: var(--brand-white);
     }
   </style>
 </head>
 <body>
-  <header>
-    <div class="logo">
-      <div class="logo-mark"></div>
-      <span>Wellness Hub</span>
-    </div>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="video.html">Video</a>
-      <a href="insights.html">Insights</a>
-      <a href="wellness.html">Wellness</a>
-      <a href="tools.html">Tools</a>
-      <a href="collaborations.html">Collaborations</a>
-      <a href="contact.html">Contact</a>
-    </nav>
-  </header>
+  <div class="site-top">
+    <a class="logo-link" href="index.html" aria-label="Home">
+      <img src="images/logo.png" alt="Beyond The Spikes">
+    </a>
+    <a class="home-link" href="index.html">← Back to home</a>
+  </div>
 
   <main>
-    <h1>About</h1>
+    <h1>About Beyond The Spikes</h1>
+    <p class="subtitle">What this project is, who it is for, and what you will find here.</p>
+
+    <h2 id="what-is-this-project">What is this project?</h2>
     <p>
-      Write your About content here: who you are, what this space is for,
-      and how you hope people will use it.
+      Beyond The Spikes is a practical health education project that focuses on real food, simple recipes, and daily habits that can help reduce sharp blood sugar spikes in adults and teenagers — while supporting steadier energy, better meal choices, and healthier routines at home.
     </p>
+    <p>
+      The website documents real-world food testing using continuous glucose monitoring and related devices on me and my mom. We turn personal meal observations into clear, practical guidance that families, caregivers, and communities can actually use.
+    </p>
+
+    <h2 id="what-is-the-goal">What is the Goal?</h2>
+    <p>
+      The goal is not to give generic “eat healthy” advice. Instead, we show how specific meals, ingredients, timing, and portions can influence blood sugar response and energy levels throughout the day.
+    </p>
+    <p>
+      For teenagers, this is especially important because puberty and changing insulin sensitivity can affect how the body handles carbohydrates. Research also links higher-glycemic diets during these years with increased long-term diabetes risk.
+    </p>
+    <p>
+      For older adults, the focus is on simple, sustainable nutrition — more fruits, vegetables, whole grains, lean proteins, beans, nuts, and seeds — to support healthy aging and steady energy.
+    </p>
+    <p>
+      This is a learning platform built on real observation and nutrition understanding — not fear or quick fixes.
+    </p>
+
+    <h2 id="what-does-this-website-offer">What does this website offer?</h2>
+    <ul>
+      <li><strong>Meal Experiments</strong> — Real examples of breakfasts, lunches, dinners, and snacks tested with monitoring devices to show how different foods affect glucose patterns and energy.</li>
+      <li><strong>Recipe Guidance</strong> — Practical recipes built around fiber, protein, and balanced carbohydrates that families can easily cook and repeat.</li>
+      <li><strong>Education for Adults &amp; Teens</strong> — Simple explanations of blood sugar spikes, glycemic response, smart food combinations, and why the same carb can affect people differently.</li>
+      <li><strong>Senior &amp; Caregiver Resources</strong> — Meal ideas and menu planning tips to help older adults and care homes offer more nutrient-dense, supportive options.</li>
+      <li><strong>Device &amp; Insurance Information</strong> — Easy-to-understand guidance on continuous glucose monitors and coverage options (including Medicare basics for eligible people with diabetes).</li>
+    </ul>
   </main>
 
   <footer>
-    © 2026 Wellness Hub · All rights reserved.
+    © 2026 Beyond The Spikes · All rights reserved.
   </footer>
 </body>
 </html>

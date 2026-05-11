@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Plot Your Spikes · Understanding Blood Sugar</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root {
+      --brand-primary: #f97316;
+      --brand-text: #1f2937;
+      --brand-muted: #6b7280;
+      --brand-bg: #f3f4f6;
+      --brand-white: #ffffff;
+      --brand-border: #fed7aa;
+      --band-blue: #1d4ed8;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--brand-bg);
+      color: var(--brand-text);
+      line-height: 1.55;
+    }
+    .site-top {
+      background: var(--brand-white);
+      border-bottom: 1px solid var(--brand-border);
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .site-top a.home-link {
+      font-weight: 600;
+      color: var(--brand-primary);
+      text-decoration: none;
+    }
+    .site-top a.home-link:hover { text-decoration: underline; }
+    .site-top .logo-link img {
+      max-height: 56px;
+      width: auto;
+      object-fit: contain;
+    }
+    main {
+      max-width: 56rem;
+      margin: 0 auto;
+      padding: 1.5rem 1.25rem 3rem;
+    }
+    main h1 {
+      font-size: clamp(1.6rem, 4vw, 2.1rem);
+      margin: 0 0 0.35rem;
+      color: var(--band-blue);
+    }
+    .subtitle {
+      color: var(--brand-muted);
+      margin: 0 0 1.25rem;
+      font-size: 1rem;
+    }
+    .tool-panel {
+      background: var(--brand-white);
+      border: 1px solid var(--brand-border);
+      border-radius: 12px;
+      padding: 1rem 1.1rem 1.15rem;
+      margin-bottom: 1rem;
+    }
+    .controls-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: flex-end;
+    }
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      min-width: 0;
+    }
+    .field label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--brand-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .field input[type="text"],
+    .field select {
+      font: inherit;
+      padding: 8px 10px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      min-width: 12rem;
+      max-width: 100%;
+    }
+    .field select { min-width: 10.5rem; }
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+    button {
+      font: inherit;
+      font-weight: 600;
+      padding: 9px 16px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+    }
+    button.primary {
+      background: var(--brand-primary);
+      color: #fff;
+    }
+    button.primary:hover { background: #ea580c; }
+    button.secondary {
+      background: #e5e7eb;
+      color: var(--brand-text);
+    }
+    button.secondary:hover { background: #d1d5db; }
+    #foodResults {
+      list-style: none;
+      margin: 8px 0 0;
+      padding: 0;
+      max-height: 220px;
+      overflow: auto;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      background: #fafafa;
+    }
+    #foodResults li {
+      padding: 8px 12px;
+      cursor: pointer;
+      border-bottom: 1px solid #eee;
+    }
+    #foodResults li:hover,
+    #foodResults li:focus {
+      background: #fff7ed;
+      outline: none;
+    }
+    #foodResults li:last-child { border-bottom: none; }
+    #foodMeta {
+      font-size: 0.85rem;
+      color: var(--brand-text);
+      margin-top: 6px;
+    }
+    .panel-hint {
+      font-size: 0.82rem;
+      color: var(--brand-muted);
+      margin-top: 4px;
+      min-height: 1.2em;
+    }
+    #eventLog {
+      font-size: 0.85rem;
+      color: var(--brand-muted);
+      margin-top: 8px;
+    }
+    .chart-wrap {
+      position: relative;
+      background: var(--brand-white);
+      border: 1px solid var(--brand-border);
+      border-radius: 12px;
+      padding: 12px;
+      min-height: 380px;
+    }
+    .chart-wrap canvas { display: block; }
+    .chart-toolbar {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 8px;
+    }
+    #chartEmptyHint {
+      position: absolute;
+      left: 50%;
+      top: 52%;
+      transform: translate(-50%, -50%);
+      color: var(--brand-muted);
+      font-size: 0.95rem;
+      pointer-events: none;
+      text-align: center;
+      max-width: 18rem;
+    }
+    .disclaimer {
+      margin-top: 1rem;
+      padding: 0.85rem 1rem;
+      background: #fffbeb;
+      border: 1px solid #fcd34d;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      color: #78350f;
+    }
+    .legend-note {
+      margin-top: 0.65rem;
+      font-size: 0.82rem;
+      color: var(--brand-muted);
+    }
+    footer {
+      text-align: center;
+      padding: 1.25rem;
+      font-size: 0.85rem;
+      color: var(--brand-muted);
+      border-top: 1px solid var(--brand-border);
+      background: var(--brand-white);
+    }
+  </style>
+</head>
+<body>
+  <div class="site-top">
+    <a class="logo-link" href="index.html" aria-label="Home">
+      <img src="images/logo.png" alt="Beyond The Spikes">
+    </a>
+    <a class="home-link" href="index.html">← Back to home</a>
+  </div>
+
+  <main>
+    <h1>Plot Your Spikes</h1>
+    <p class="subtitle">
+      Explore an illustrative blood-glucose curve over a 12-hour window (2 hours before your first meal through 10 hours after) from USDA food data and meal times. The x-axis shows clock time for that window, anchored to the meal time you pick (for example 6:00 AM).
+      <strong>How to add a meal:</strong> type a food (2+ letters), wait for matches, <strong>click one result in the list</strong> (that locks in nutrition), choose a time, then <strong>Add meal</strong>.
+      Pan and zoom along time only; the glucose axis stays 0–400 mg/dL. Use Reset zoom to fit the full time window again.
+      A built-in offline food list still works if USDA search is busy or unavailable.
+    </p>
+
+    <div class="tool-panel">
+      <div class="controls-row">
+        <div class="field" style="flex: 1; min-width: 200px;">
+          <label for="foodSearch">Food (USDA + offline)</label>
+          <input id="foodSearch" type="text" autocomplete="off" placeholder="e.g. oatmeal, apple…">
+        </div>
+        <div class="field">
+          <label for="mealTime">Meal time</label>
+          <select id="mealTime" aria-label="Meal time in 30-minute steps"></select>
+        </div>
+        <div class="field">
+          <label for="compareMode">Diabetic vs non-diabetic</label>
+          <select id="compareMode">
+            <option value="none">Single curve</option>
+            <option value="healthy_vs_t2">Compare: non-diabetic vs type 2 (illustrative)</option>
+            <option value="healthy_vs_t1">Compare: non-diabetic vs type 1 (illustrative)</option>
+          </select>
+        </div>
+        <div class="btn-row">
+          <button type="button" class="primary" id="addMealBtn">Add meal</button>
+          <button type="button" class="secondary" id="resetBtn">Clear meals</button>
+        </div>
+      </div>
+      <ul id="foodResults" role="listbox" aria-label="Search results"></ul>
+      <p id="foodMeta" aria-live="polite"></p>
+      <p id="panelHint" class="panel-hint" aria-live="polite"></p>
+      <p id="eventLog" aria-live="polite"></p>
+    </div>
+
+    <div class="chart-toolbar">
+      <button type="button" class="secondary" id="resetZoomBtn">Reset zoom</button>
+    </div>
+    <div class="chart-wrap" style="height: min(70vh, 480px);">
+      <p id="chartEmptyHint">Add a meal to plot a composite curve. Blue dotted lines: 70 and 140 mg/dL references.</p>
+      <canvas id="bgSpikeChart" aria-label="Blood glucose chart"></canvas>
+    </div>
+    <p class="legend-note">
+      Horizontal dotted lines mark 70 mg/dL and 140 mg/dL. Dashed orange vertical lines mark each meal time; on the curve, each meal is a small <strong>colored dot</strong> on the line. Meal names sit <strong>just under</strong> that point with <strong>ink-blue background and white text</strong>.
+    </p>
+    <div class="disclaimer">
+      <strong>Educational only.</strong> This tool is not a medical device and does not predict your real blood sugar.
+      Carbohydrate, fiber, and sugar values come from USDA when available, or from the offline list. Diabetic vs non-diabetic comparison draws two heuristic curves for the same meals (not real CGM file traces).
+      Always follow your clinician’s advice for diabetes care.
+    </div>
+  </main>
+
+  <footer>
+    Beyond The Spikes · Understanding Blood Sugar
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.1.0/dist/chartjs-plugin-annotation.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8/hammer.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.2.0/dist/chartjs-plugin-zoom.min.js"></script>
+  <script src="js/modelParams.js"></script>
+  <script src="js/localFoodDataset.js"></script>
+  <script src="js/bg-spike-tool.js"></script>
+</body>
+</html>
