@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Glucometers · Beyond The Spikes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root {
+      --brand-primary: #f97316;
+      --brand-text: #1f2937;
+      --brand-muted: #6b7280;
+      --brand-bg: #f3f4f6;
+      --brand-white: #ffffff;
+      --brand-border: #fed7aa;
+      --band-blue: #1d4ed8;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--brand-bg);
+      color: var(--brand-text);
+      line-height: 1.65;
+    }
+    .site-top {
+      background: var(--brand-white);
+      border-bottom: 1px solid var(--brand-border);
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .site-top a.home-link {
+      font-weight: 600;
+      color: var(--brand-primary);
+      text-decoration: none;
+    }
+    .site-top a.home-link:hover {
+      text-decoration: underline;
+    }
+    .site-top .logo-link {
+      display: flex;
+      align-items: center;
+    }
+    .site-top .logo-link img {
+      max-height: 56px;
+      width: auto;
+      object-fit: contain;
+    }
+    main {
+      max-width: 52rem;
+      margin: 0 auto;
+      padding: 2rem 1.25rem 3.5rem;
+    }
+    main h1 {
+      font-size: clamp(1.75rem, 4vw, 2.25rem);
+      margin: 0 0 0.75rem;
+      line-height: 1.2;
+      color: var(--band-blue);
+    }
+    main h2 {
+      font-size: 1.35rem;
+      margin: 2rem 0 0.75rem;
+      color: var(--brand-text);
+      border-bottom: 2px solid var(--brand-border);
+      padding-bottom: 0.35rem;
+    }
+    main p {
+      margin: 0 0 1rem;
+      color: var(--brand-text);
+    }
+    main ol,
+    main ul {
+      margin: 0 0 1.25rem;
+      padding-left: 1.35rem;
+    }
+    main li {
+      margin-bottom: 0.5rem;
+    }
+    .video-block {
+      margin: 1.25rem 0 1.5rem;
+      background: var(--brand-white);
+      border: 1px solid var(--brand-border);
+      border-radius: 8px;
+      padding: 1.25rem;
+      text-align: center;
+    }
+    .video-block figcaption {
+      margin-top: 0.75rem;
+      font-size: 0.95rem;
+      color: var(--brand-muted);
+    }
+    .video-placeholder {
+      padding: 2.5rem 1rem;
+      color: var(--brand-muted);
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+    footer {
+      text-align: center;
+      padding: 1.25rem;
+      font-size: 0.85rem;
+      color: var(--brand-muted);
+      border-top: 1px solid var(--brand-border);
+      background: var(--brand-white);
+    }
+  </style>
+</head>
+<body>
+  <div class="site-top">
+    <a class="logo-link" href="index.html" aria-label="Home">
+      <img src="images/logo.png" alt="Beyond The Spikes">
+    </a>
+    <a class="home-link" href="index.html">← Back to home</a>
+  </div>
+
+  <main>
+    <h1>Glucometers</h1>
+    <p>
+      As a non-diabetic, I rely on glucometers to take my blood sugar readings. Glucometers are small, portable devices used to manually check blood glucose levels at a specific moment in time, and are not continuous. Glucometers do not rely on a prescription and can be purchased at any pharmacy store.
+    </p>
+    <p>
+      Throughout my videos, I will be using glucometers to take my blood sugar readings at specific time intervals in order to analyze trends and patterns in my blood sugar levels. Although they do not give consistent readings unlike <a href="tools-cgms.html">Continuous Glucose Monitors</a> (refer to the <a href="tools-cgms.html">CGMs section</a> for more information), they can give a general idea of how fast blood glucose spikes, falls, and rises after eating a certain food.
+    </p>
+
+    <p>To use a glucometer:</p>
+    <ol>
+      <li>A lancet (a very small needle inside a spring-loaded pen) is used to gently prick the fingertip.</li>
+      <li>A drop of blood is placed onto a disposable test strip.</li>
+      <li>The strip is inserted into the glucometer, which analyzes the sample.</li>
+      <li>The device displays the blood glucose reading within seconds.</li>
+    </ol>
+
+    <h2 id="how-to-video">How to take a blood sugar reading</h2>
+    <p>Refer to the video below to understand how we take blood sugar readings:</p>
+    <figure class="video-block">
+      <div class="video-placeholder" aria-label="Video placeholder">
+        Video: taking a blood sugar reading (how to use a glucometer)
+      </div>
+      <figcaption>How to use a glucometer — taking a blood sugar reading</figcaption>
+    </figure>
+  </main>
+
+  <footer>
+    © 2026 Beyond The Spikes · All rights reserved.
+  </footer>
+</body>
+</html>
