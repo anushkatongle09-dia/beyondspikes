@@ -44,7 +44,8 @@
       object-fit: contain;
     }
     main {
-      max-width: 56rem;
+      width: 85%;
+      max-width: 85vw;
       margin: 0 auto;
       padding: 1.5rem 1.25rem 3rem;
     }
@@ -67,9 +68,20 @@
     }
     .controls-row {
       display: flex;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
       gap: 10px;
       align-items: flex-end;
+    }
+    @media (max-width: 640px) {
+      .controls-row { flex-wrap: wrap; }
+    }
+    .field-meal {
+      flex: 1 1 12rem;
+      min-width: 0;
+    }
+    .field-portion,
+    .field-time {
+      flex: 0 0 auto;
     }
     .field {
       display: flex;
@@ -93,12 +105,28 @@
       min-width: 12rem;
       max-width: 100%;
     }
-    .field select { min-width: 10.5rem; }
-    .btn-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
+    .field select#portion { min-width: 4.75rem; }
+    .field select#mealTime { min-width: 9.5rem; }
+    button.btn-add {
+      flex: 0 0 auto;
+      width: 2.75rem;
+      height: 2.75rem;
+      padding: 0;
+      font-size: 1.45rem;
+      font-weight: 700;
+      line-height: 1;
+      display: inline-flex;
       align-items: center;
+      justify-content: center;
+    }
+    .controls-actions {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 8px;
+    }
+    .controls-actions button.secondary {
+      font-size: 0.85rem;
+      padding: 6px 12px;
     }
     button {
       font: inherit;
@@ -151,9 +179,43 @@
       min-height: 1.2em;
     }
     #eventLog {
+      list-style: none;
+      margin: 8px 0 0;
+      padding: 0;
       font-size: 0.85rem;
-      color: var(--brand-muted);
-      margin-top: 8px;
+      color: var(--brand-text);
+    }
+    #eventLog li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 6px;
+      line-height: 1.4;
+    }
+    #eventLog li:last-child {
+      margin-bottom: 0;
+    }
+    .meal-remove-btn {
+      flex: 0 0 auto;
+      min-width: 2rem;
+      height: 1.6rem;
+      padding: 0 4px;
+      border: 1px solid #fecaca;
+      border-radius: 6px;
+      background: #fef2f2;
+      color: #b91c1c;
+      font-size: 0.75rem;
+      font-weight: 700;
+      line-height: 1;
+      cursor: pointer;
+    }
+    .meal-remove-btn:hover {
+      background: #fee2e2;
+      border-color: #fca5a5;
+    }
+    .meal-remove-btn:focus-visible {
+      outline: 2px solid var(--brand-primary);
+      outline-offset: 2px;
     }
     .chart-wrap {
       position: relative;
@@ -215,39 +277,39 @@
   <main>
     <h1>Plot Your Spikes</h1>
     <p class="subtitle">
-      Explore an illustrative blood-glucose curve over a 12-hour window (2 hours before your first meal through 10 hours after) from USDA food data and meal times. The x-axis shows clock time for that window, anchored to the meal time you pick (for example 6:00 AM).
-      <strong>How to add a meal:</strong> type a food (2+ letters), wait for matches, <strong>click one result in the list</strong> (that locks in nutrition), choose a time, then <strong>Add meal</strong>.
-      Pan and zoom along time only; the glucose axis stays 0–400 mg/dL. Use Reset zoom to fit the full time window again.
-      A built-in offline food list still works if USDA search is busy or unavailable.
+      Explore an illustrative blood-glucose curve by adding your meal
     </p>
 
     <div class="tool-panel">
       <div class="controls-row">
-        <div class="field" style="flex: 1; min-width: 200px;">
-          <label for="foodSearch">Food (USDA + offline)</label>
+        <div class="field field-meal">
+          <label for="foodSearch">Meal</label>
           <input id="foodSearch" type="text" autocomplete="off" placeholder="e.g. oatmeal, apple…">
         </div>
-        <div class="field">
-          <label for="mealTime">Meal time</label>
-          <select id="mealTime" aria-label="Meal time in 30-minute steps"></select>
-        </div>
-        <div class="field">
-          <label for="compareMode">Diabetic vs non-diabetic</label>
-          <select id="compareMode">
-            <option value="none">Single curve</option>
-            <option value="healthy_vs_t2">Compare: non-diabetic vs type 2 (illustrative)</option>
-            <option value="healthy_vs_t1">Compare: non-diabetic vs type 1 (illustrative)</option>
+        <div class="field field-portion">
+          <label for="portion">Portion</label>
+          <select id="portion" aria-label="Portion size: 1x through 6x">
+            <option value="1" selected>1x</option>
+            <option value="2">2x</option>
+            <option value="3">3x</option>
+            <option value="4">4x</option>
+            <option value="5">5x</option>
+            <option value="6">6x</option>
           </select>
         </div>
-        <div class="btn-row">
-          <button type="button" class="primary" id="addMealBtn">Add meal</button>
-          <button type="button" class="secondary" id="resetBtn">Clear meals</button>
+        <div class="field field-time">
+          <label for="mealTime">Time</label>
+          <select id="mealTime" aria-label="Meal time in 30-minute steps"></select>
         </div>
+        <button type="button" class="primary btn-add" id="addMealBtn" aria-label="Add meal" title="Add meal">+</button>
+      </div>
+      <div class="controls-actions">
+        <button type="button" class="secondary" id="resetBtn">Clear meals</button>
       </div>
       <ul id="foodResults" role="listbox" aria-label="Search results"></ul>
       <p id="foodMeta" aria-live="polite"></p>
       <p id="panelHint" class="panel-hint" aria-live="polite"></p>
-      <p id="eventLog" aria-live="polite"></p>
+      <ul id="eventLog" class="event-log" aria-live="polite" aria-label="Added meals"></ul>
     </div>
 
     <div class="chart-toolbar">
@@ -262,7 +324,7 @@
     </p>
     <div class="disclaimer">
       <strong>Educational only.</strong> This tool is not a medical device and does not predict your real blood sugar.
-      Carbohydrate, fiber, and sugar values come from USDA when available, or from the offline list. Diabetic vs non-diabetic comparison draws two heuristic curves for the same meals (not real CGM file traces).
+      Carbohydrate, fiber, and sugar values come from USDA when available, or from the offline list.
       Always follow your clinician’s advice for diabetes care.
     </div>
   </main>
