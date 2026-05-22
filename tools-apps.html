@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Apps · Beyond The Spikes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root {
+      --brand-primary: #f97316;
+      --brand-text: #1f2937;
+      --brand-muted: #6b7280;
+      --brand-bg: #f3f4f6;
+      --brand-white: #ffffff;
+      --brand-border: #fed7aa;
+      --band-blue: #1d4ed8;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--brand-bg);
+      color: var(--brand-text);
+      line-height: 1.65;
+    }
+    .site-top {
+      background: var(--brand-white);
+      border-bottom: 1px solid var(--brand-border);
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .site-top a.home-link {
+      font-weight: 600;
+      color: var(--brand-primary);
+      text-decoration: none;
+    }
+    .site-top a.home-link:hover {
+      text-decoration: underline;
+    }
+    .site-top .logo-link {
+      display: flex;
+      align-items: center;
+    }
+    .site-top .logo-link img {
+      max-height: 56px;
+      width: auto;
+      object-fit: contain;
+    }
+    main {
+      max-width: 52rem;
+      margin: 0 auto;
+      padding: 2rem 1.25rem 3.5rem;
+    }
+    main h1 {
+      font-size: clamp(1.75rem, 4vw, 2.25rem);
+      margin: 0 0 0.75rem;
+      line-height: 1.2;
+      color: var(--band-blue);
+    }
+    main h2 {
+      font-size: 1.35rem;
+      margin: 2rem 0 0.75rem;
+      color: var(--brand-text);
+      border-bottom: 2px solid var(--brand-border);
+      padding-bottom: 0.35rem;
+    }
+    main h3 {
+      font-size: 1.05rem;
+      margin: 1.25rem 0 0.5rem;
+      color: var(--brand-text);
+    }
+    main p {
+      margin: 0 0 1rem;
+      color: var(--brand-text);
+    }
+    main ul {
+      margin: 0 0 1.25rem;
+      padding-left: 1.35rem;
+    }
+    main li {
+      margin-bottom: 0.5rem;
+    }
+    footer {
+      text-align: center;
+      padding: 1.25rem;
+      font-size: 0.85rem;
+      color: var(--brand-muted);
+      border-top: 1px solid var(--brand-border);
+      background: var(--brand-white);
+    }
+  </style>
+</head>
+<body>
+  <div class="site-top">
+    <a class="logo-link" href="index.html" aria-label="Home">
+      <img src="images/logo.png" alt="Beyond The Spikes">
+    </a>
+    <a class="home-link" href="index.html">← Back to home</a>
+  </div>
+
+  <main>
+    <h1>Apps</h1>
+    <p>
+      I will be using multiple apps to track my blood sugar and analyze trends throughout this journey. These apps help me analyze my blood sugar spikes and other patterns caused by eating certain types of foods, and their healthier alternatives.
+    </p>
+
+    <h2>GlucoseBuddy</h2>
+    <p>
+      This app is designed specifically for people monitoring blood glucose. GlucoseBuddy allows you to log blood glucose manually or sync with some CGMs, in addition to tracking carbohydrates, medications, insulin doses, and activity. I will be using GlucoseBuddy to track my blood sugar and analyze trends, such as how long it takes for my blood glucose to return to baseline, and how much my blood glucose spikes after eating something.
+    </p>
+
+    <h2>Calorie Intake Apps</h2>
+    <h3>MyFitnessPal</h3>
+    <p>
+      A popular app for logging meals and understanding nutritional content.
+    </p>
+    <h3>What it helps with:</h3>
+    <ul>
+      <li>Tracking calories and macronutrients (carbohydrates, protein, fat)</li>
+      <li>Viewing micronutrients (such as vitamins and minerals)</li>
+      <li>Using a barcode scanner for quick food entry</li>
+      <li>Identifying how many carbohydrates you consume at each meal</li>
+    </ul>
+    <p>
+      Because carbohydrates have the greatest effect on blood sugar, this app helps users be more aware of carb intake and portion sizes.
+    </p>
+
+    <h3>MyNetDiary</h3>
+    <p>
+      Another strong nutrition tracker with features tailored for people monitoring blood sugar.
+    </p>
+    <h3>What it helps with:</h3>
+    <ul>
+      <li>Detailed carbohydrate tracking</li>
+      <li>Easy meal logging with a large food database</li>
+      <li>Charts that connect meals with glucose readings</li>
+      <li>Support for weight and activity tracking</li>
+    </ul>
+  </main>
+
+  <footer>
+    © 2026 Beyond The Spikes · All rights reserved.
+  </footer>
+</body>
+</html>
