@@ -61,7 +61,7 @@
       position: absolute;
       left: 50%;
       top: 50%;
-      transform: translate(-46%, -50%);
+      transform: translate(-46%, -50%) scale(0.95);
       display: flex;
       flex-direction: column;
       align-items: stretch;
@@ -350,10 +350,11 @@
       }
       .voice-tool-wrap {
         position: static;
-        transform: none;
+        transform: scale(0.95);
+        transform-origin: top center;
         order: 2;
         width: 100%;
-        margin: 4px 0;
+        margin: 4px auto;
       }
       .logo {
         order: 1;
