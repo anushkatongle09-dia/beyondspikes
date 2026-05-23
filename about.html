@@ -91,6 +91,50 @@
     main li strong {
       color: var(--brand-text);
     }
+    .motivation-content::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+    .motivation-photo {
+      margin: 0 0 1rem;
+      max-width: min(240px, 42%);
+    }
+    .motivation-photo img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
+      display: block;
+    }
+    .motivation-photo figcaption {
+      font-size: 0.8rem;
+      color: var(--brand-muted);
+      margin-top: 0.45rem;
+      text-align: center;
+      line-height: 1.4;
+    }
+    .motivation-photo.photo-right {
+      float: right;
+      margin-left: 1.35rem;
+      margin-top: 0.15rem;
+    }
+    .motivation-photo.photo-left {
+      float: left;
+      margin-right: 1.35rem;
+      margin-top: 0.15rem;
+    }
+    @media (max-width: 640px) {
+      .motivation-photo {
+        float: none;
+        max-width: 100%;
+        margin: 0 0 1.25rem;
+      }
+      .motivation-photo img {
+        max-width: 320px;
+        margin: 0 auto;
+      }
+    }
     footer {
       text-align: center;
       padding: 1.25rem;
@@ -114,18 +158,32 @@
     <p class="subtitle">What this project is, who it is for, and what you will find here.</p>
 
     <h2 id="why-this-project">Why did I decide to pursue this project?</h2>
+    <motion class="motivation-content">
+    <figure class="motivation-photo photo-right">
+      <img src="images/AnushkaVolunteering_2025_Church.jpg" alt="Medical volunteering in a rural church in Jamaica">
+      <figcaption>Medical mission in Jamaica, 2025</figcaption>
+    </figure>
     <p>
       Sitting in a rural church in Jamaica during a medical volunteering mission, I watched healthcare providers deliver treatment in crowded, cramped spaces. But the lack of physical space wasn't what caught my attention most; it was the overwhelming prevalence of chronic conditions like diabetes and hypertension. Through discussions with doctors on the mission and patients, I quickly learned that a lack of health education was a driving force behind these high disease rates.
     </p>
+    <figure class="motivation-photo photo-left">
+      <img src="images/AnushkaVolunteering_2024.jpeg" alt="Volunteering during a medical mission in 2024">
+      <figcaption>Medical mission volunteer, 2024</figcaption>
+    </figure>
     <p>
       After returning home to San Diego, I noticed a striking parallel within our own underserved communities, which faced a similarly high burden of chronic disease. In these settings, I saw firsthand how crucial it is for patients to understand the biology and mechanisms behind their conditions to navigate their care.
     </p>
     <p>
       Witnessing this gap across different populations motivated me to dive deeper into the data. My research led me to a 2024 CDC report highlighting a concerning projection for children and teenagers: if current trends continue, Type 1 diabetes cases among youth could increase by about 65%, while Type 2 diabetes cases could skyrocket by nearly 700%. This staggering forecast underscored an urgent truth: we must prioritize health education for the younger generation.
     </p>
+    <figure class="motivation-photo photo-right">
+      <img src="images/AnushkaVolunteering_2025.jpg" alt="Volunteering at a medical mission in 2025">
+      <figcaption>Medical mission volunteer, 2025</figcaption>
+    </figure>
     <p>
       These collective experiences inspired me to create Beyond the Spikes, a passion project focused on improving nutritional health literacy among teens in San Diego. Through this website, we explore the biology of nutrition, identifying foods that cause massive blood sugar spikes, offering healthier alternatives, and empowering young people with the education they need to prevent diabetes before it starts.
     </p>
+    </div>
 
     <h2 id="what-is-the-goal">What is the Goal?</h2>
     <p>
