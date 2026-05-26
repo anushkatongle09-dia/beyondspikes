@@ -364,7 +364,8 @@
     }
     .content-band {
       display: flex;
-      align-items: center;
+      flex-direction: column;
+      align-items: stretch;
       justify-content: flex-start;
       padding: clamp(18px, 3vw, 26px);
       box-sizing: border-box;
@@ -395,19 +396,39 @@
       max-width: 100%;
       text-align: center;
     }
-    .content-band h2 {
-      margin: 0 0 1rem;
+    .tri-columns .band-inner > h2 {
+      margin: 0 0 0.35rem;
       font-size: clamp(1.2rem, 2.8vw, 1.65rem);
       font-weight: 700;
       line-height: 1.15;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.12);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
     }
     .content-band .band-lead {
-      margin: 0 auto 1rem;
+      margin: 0 auto 0.5rem;
       max-width: 100%;
       font-size: clamp(0.9rem, 1.75vw, 1rem);
       line-height: 1.65;
       color: rgba(255,255,255,0.88);
+    }
+    #blood-sugar-patterns .band-inner,
+    #current-analysis .band-inner {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      min-height: 100%;
+      flex: 1 1 auto;
+    }
+    .band-copy-above-images {
+      flex: 0 0 auto;
+      min-height: clamp(6.75rem, 14vw, 9rem);
+    }
+    .band-visual-area {
+      flex: 1 1 auto;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      width: 100%;
+      min-height: 0;
     }
     .content-band .band-video-link {
       display: inline-block;
@@ -431,12 +452,17 @@
     #current-analysis.band-clickable {
       padding: 0;
     }
+    #blood-sugar-patterns .band-inner {
+      flex: 1 1 auto;
+    }
     .band-pane-link {
       display: flex;
-      align-items: center;
+      flex-direction: column;
+      align-items: stretch;
       justify-content: flex-start;
       width: 100%;
       min-height: 100%;
+      flex: 1 1 auto;
       padding: clamp(18px, 3vw, 26px);
       box-sizing: border-box;
       color: inherit;
@@ -451,24 +477,15 @@
       outline: 3px solid #fff;
       outline-offset: -4px;
     }
-    #current-analysis .band-inner h2 {
-      margin-bottom: 0.35rem;
-    }
     #current-analysis .band-detail {
       margin-bottom: 0.35rem;
     }
     #current-analysis .band-click-hint {
-      margin: 0 0 0.5rem;
+      margin: 0;
       font-size: clamp(0.78rem, 1.4vw, 0.88rem);
       line-height: 1.4;
       color: rgba(255, 255, 255, 0.9);
       font-style: italic;
-    }
-    #current-analysis .band-inner {
-      display: flex;
-      flex-direction: column;
-      width: 100%;
-      min-height: 100%;
     }
     .pbj-images-wrap {
       display: flex;
@@ -476,14 +493,12 @@
       align-items: center;
       justify-content: center;
       gap: 12px;
-      flex: 1 1 auto;
       width: 100%;
       margin: 0;
-      min-height: min(58vh, 480px);
     }
     .pbj-img-cell {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
       flex: 1 1 0;
       min-width: 0;
@@ -502,8 +517,17 @@
       max-height: min(58vh, 480px);
     }
     .pbj-img-cell--curve img {
-      transform: scaleY(0.9);
-      transform-origin: center center;
+      transform: translateY(-14px) scaleY(0.9);
+      transform-origin: center top;
+    }
+    .pbj-img-cell--curve {
+      align-self: flex-start;
+    }
+    .pbj-img-cell--cover {
+      align-self: center;
+    }
+    .pbj-img-cell--cover img {
+      transform: translateY(-24px);
     }
     @media (max-width: 520px) {
       .pbj-images-wrap {
@@ -524,7 +548,8 @@
       left: 50%;
       transform: translateX(-50%);
       border-radius: 10px;
-      box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+      vertical-align: top;
     }
     #blood-sugar-patterns.content-band {
       overflow-x: visible;
@@ -737,27 +762,35 @@
     <section class="tri-columns" aria-label="Blood sugar overview">
       <section id="blood-sugar-patterns" class="content-band band-blue" aria-labelledby="heading-patterns">
         <div class="band-inner">
-          <h2 id="heading-patterns">Blood Sugar Patterns</h2>
-          <p class="band-lead">
-            Patterns in how glucose rises and falls after meals can reveal how your body responds to food and habits.
-            Use this chart as a reference as you explore your own rhythms.
-          </p>
-          <img class="pattern-img" src="images/SugarSpikes00.png" alt="Illustration comparing sharp versus gradual blood sugar curves after eating">
+          <div class="band-copy-above-images">
+            <h2 id="heading-patterns">Blood Sugar Patterns</h2>
+            <p class="band-lead">
+              Patterns in how glucose rises and falls after meals can reveal how your body responds to food and habits.
+              Use this chart as a reference as you explore your own rhythms.
+            </p>
+          </div>
+          <div class="band-visual-area">
+            <img class="pattern-img" src="images/SugarSpikes00.png" alt="Illustration comparing sharp versus gradual blood sugar curves after eating">
+          </div>
         </div>
       </section>
 
       <section id="current-analysis" class="content-band band-green band-clickable" aria-labelledby="heading-current">
         <a class="band-pane-link" href="tested-my-videos.html?play=pbj#pbj-video" aria-label="Watch PBJ vs PB and Fruit video on My Videos">
           <div class="band-inner">
-            <h2 id="heading-current">PBJ Vs PB&amp;Fruit</h2>
-            <p class="band-detail">Using commonly available Peanut Butter, Jelly and bread brands</p>
-            <p class="band-click-hint">Click the icons to view the video for details</p>
-            <div class="pbj-images-wrap">
-              <div class="pbj-img-cell pbj-img-cell--cover">
-                <img class="pbj-img-cover" src="images/PBJ_Cover.jpg" alt="PBJ meal comparison cover — click to watch video">
-              </div>
-              <div class="pbj-img-cell pbj-img-cell--curve">
-                <img class="pbj-img-curve" src="images/PBJ_Curve.jpg" alt="Blood sugar curve comparison — click to watch video">
+            <div class="band-copy-above-images">
+              <h2 id="heading-current">PBJ Vs PB&amp;Fruit</h2>
+              <p class="band-detail">Using commonly available Peanut Butter, Jelly and bread brands</p>
+              <p class="band-click-hint">Click the icons to view the video for details</p>
+            </div>
+            <div class="band-visual-area">
+              <div class="pbj-images-wrap">
+                <div class="pbj-img-cell pbj-img-cell--cover">
+                  <img class="pbj-img-cover" src="images/PBJ_Cover.jpg" alt="PBJ meal comparison cover — click to watch video">
+                </div>
+                <div class="pbj-img-cell pbj-img-cell--curve">
+                  <img class="pbj-img-curve" src="images/PBJ_Curve.jpg" alt="Blood sugar curve comparison — click to watch video">
+                </div>
               </div>
             </div>
           </div>
