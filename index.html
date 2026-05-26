@@ -428,6 +428,92 @@
       line-height: 1.55;
       color: rgba(255, 255, 255, 0.85);
     }
+    #current-analysis.band-clickable {
+      padding: 0;
+    }
+    .band-pane-link {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      width: 100%;
+      min-height: 100%;
+      padding: clamp(18px, 3vw, 26px);
+      box-sizing: border-box;
+      color: inherit;
+      text-decoration: none;
+      cursor: pointer;
+      transition: filter 0.2s ease;
+    }
+    .band-pane-link:hover {
+      filter: brightness(1.06);
+    }
+    .band-pane-link:focus-visible {
+      outline: 3px solid #fff;
+      outline-offset: -4px;
+    }
+    #current-analysis .band-inner h2 {
+      margin-bottom: 0.35rem;
+    }
+    #current-analysis .band-detail {
+      margin-bottom: 0.35rem;
+    }
+    #current-analysis .band-click-hint {
+      margin: 0 0 0.5rem;
+      font-size: clamp(0.78rem, 1.4vw, 0.88rem);
+      line-height: 1.4;
+      color: rgba(255, 255, 255, 0.9);
+      font-style: italic;
+    }
+    #current-analysis .band-inner {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      min-height: 100%;
+    }
+    .pbj-images-wrap {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex: 1 1 auto;
+      width: 100%;
+      margin: 0;
+      min-height: min(58vh, 480px);
+    }
+    .pbj-img-cell {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 1 1 0;
+      min-width: 0;
+      background: none;
+      border: none;
+      border-radius: 0;
+      overflow: visible;
+      box-shadow: none;
+      padding: 0;
+    }
+    .pbj-img-cell img {
+      display: block;
+      width: auto;
+      height: auto;
+      max-width: 100%;
+      max-height: min(58vh, 480px);
+    }
+    .pbj-img-cell--curve img {
+      transform: scaleY(0.9);
+      transform-origin: center center;
+    }
+    @media (max-width: 520px) {
+      .pbj-images-wrap {
+        flex-direction: column;
+        min-height: auto;
+      }
+      .pbj-img-cell img {
+        max-height: 280px;
+      }
+    }
     .pattern-img {
       display: block;
       width: 98.325%;
@@ -660,16 +746,22 @@
         </div>
       </section>
 
-      <section id="current-analysis" class="content-band band-green" aria-labelledby="heading-current">
-        <div class="band-inner">
-          <h2 id="heading-current">Currently analyzing PBJ vs PB&amp;Fruits</h2>
-          <p class="band-detail">
-            Using commonly available peanut butter and jelly brands with commonly used bread slices; compared with peanut butter on the same bread slices but using direct-cut fruit instead of jelly.
-          </p>
-          <p class="band-lead">
-            <a class="band-video-link" href="tested-my-videos.html">View video</a>
-          </p>
-        </div>
+      <section id="current-analysis" class="content-band band-green band-clickable" aria-labelledby="heading-current">
+        <a class="band-pane-link" href="tested-my-videos.html?play=pbj#pbj-video" aria-label="Watch PBJ vs PB and Fruit video on My Videos">
+          <div class="band-inner">
+            <h2 id="heading-current">PBJ Vs PB&amp;Fruit</h2>
+            <p class="band-detail">Using commonly available Peanut Butter, Jelly and bread brands</p>
+            <p class="band-click-hint">Click the icons to view the video for details</p>
+            <div class="pbj-images-wrap">
+              <div class="pbj-img-cell pbj-img-cell--cover">
+                <img class="pbj-img-cover" src="images/PBJ_Cover.jpg" alt="PBJ meal comparison cover — click to watch video">
+              </div>
+              <div class="pbj-img-cell pbj-img-cell--curve">
+                <img class="pbj-img-curve" src="images/PBJ_Curve.jpg" alt="Blood sugar curve comparison — click to watch video">
+              </div>
+            </div>
+          </div>
+        </a>
       </section>
     </section>
   </main>
