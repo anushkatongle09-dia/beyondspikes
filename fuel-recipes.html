@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Contact Me · Beyond The Spikes</title>
+  <title>Recipes · Beyond The Spikes</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     :root {
@@ -47,6 +47,12 @@
       max-width: 52rem;
       margin: 0 auto;
       padding: 2rem 1.25rem 3.5rem;
+      min-height: 50vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
     }
     main h1 {
       font-size: clamp(1.75rem, 4vw, 2.25rem);
@@ -54,20 +60,10 @@
       line-height: 1.2;
       color: var(--band-blue);
     }
-    main p {
-      margin: 0 0 1rem;
-      color: var(--brand-text);
-    }
-    .contact-email {
-      display: inline-block;
-      font-size: 1.15rem;
-      font-weight: 600;
-      color: var(--brand-primary);
-      text-decoration: none;
-      word-break: break-all;
-    }
-    .contact-email:hover {
-      text-decoration: underline;
+    .coming-soon {
+      font-size: clamp(1.25rem, 3vw, 1.6rem);
+      color: var(--brand-muted);
+      margin: 0;
     }
     footer {
       text-align: center;
@@ -88,11 +84,8 @@
   </div>
 
   <main>
-    <h1>Contact Me</h1>
-    <p>Questions, feedback, or collaboration ideas? Reach out by email:</p>
-    <p>
-      <a class="contact-email" href="mailto:ContactBeyondTheSpikes@gmail.com">ContactBeyondTheSpikes@gmail.com</a>
-    </p>
+    <h1>Recipes</h1>
+    <p class="coming-soon">Coming Soon</p>
   </main>
 
   <footer>
