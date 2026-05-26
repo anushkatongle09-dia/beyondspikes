@@ -409,6 +409,25 @@
       line-height: 1.65;
       color: rgba(255,255,255,0.88);
     }
+    .content-band .band-video-link {
+      display: inline-block;
+      margin-top: 0.5rem;
+      font-size: clamp(1rem, 2vw, 1.15rem);
+      font-weight: 700;
+      color: #fff;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    .content-band .band-video-link:hover {
+      color: rgba(255, 255, 255, 0.92);
+    }
+    .content-band .band-detail {
+      margin: 0 auto 1rem;
+      max-width: 100%;
+      font-size: clamp(0.8rem, 1.5vw, 0.92rem);
+      line-height: 1.55;
+      color: rgba(255, 255, 255, 0.85);
+    }
     .pattern-img {
       display: block;
       width: 98.325%;
@@ -641,12 +660,14 @@
         </div>
       </section>
 
-      <section id="avoid-spikes" class="content-band band-green" aria-labelledby="heading-spikes">
+      <section id="current-analysis" class="content-band band-green" aria-labelledby="heading-current">
         <div class="band-inner">
-          <h2 id="heading-spikes">How to avoid Risks</h2>
+          <h2 id="heading-current">Currently analyzing PBJ vs PB&amp;Fruits</h2>
+          <p class="band-detail">
+            Using commonly available peanut butter and jelly brands with commonly used bread slices; compared with peanut butter on the same bread slices but using direct-cut fruit instead of jelly.
+          </p>
           <p class="band-lead">
-            Gentle strategies often help: pairing carbs with fiber and protein, steady meal timing when possible,
-            movement after meals, hydration, sleep, and working with care teams on medications when appropriate.
+            <a class="band-video-link" href="tested-my-videos.html">View video</a>
           </p>
         </div>
       </section>
