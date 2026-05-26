@@ -124,18 +124,9 @@
   async function submitMessage(message) {
     const apiUrl = (cfg.apiUrl || "").trim();
     if (!apiUrl) {
-      setStatus("API not configured yet.");
+      setStatus("Work in progress");
       if (responseEl) {
-        responseEl.textContent =
-          "Spike Reducer needs your free Cloudflare Worker URL.\n\n" +
-          "1. Get a free Gemini API key: https://aistudio.google.com/apikey\n" +
-          "2. Install Wrangler: npm install -g wrangler\n" +
-          "3. In this project folder run:\n" +
-          "   wrangler login\n" +
-          "   wrangler secret put GEMINI_API_KEY\n" +
-          "   wrangler deploy\n" +
-          "4. Copy the Worker URL + /api/spike-reducer into js/spike-reducer-config.js (apiUrl)\n\n" +
-          "Full steps: README-spike-reducer.md";
+        responseEl.textContent = "Work in Progress. Visit us in few days!";
       }
       busy = false;
       return;
