@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>My Videos · Beyond The Spikes</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <style>
     :root {
       --brand-primary: #f97316;
@@ -83,11 +84,80 @@
       color: var(--brand-muted);
       font-style: italic;
     }
-    .video-player-box {
+    .video-player-box,
+    .youtube-frame {
       position: relative;
+      width: 100%;
+      margin-left: auto;
+      margin-right: auto;
       border-radius: 8px;
       overflow: hidden;
       background: #000;
+    }
+    .youtube-frame--landscape {
+      aspect-ratio: 16 / 9;
+      max-width: 100%;
+    }
+    .youtube-frame--portrait {
+      aspect-ratio: 9 / 16;
+      width: min(100%, 22rem);
+    }
+    .youtube-embed-wrap iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+    .youtube-facade-wrap {
+      position: relative;
+      width: 100%;
+    }
+    .youtube-facade {
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+    }
+    .youtube-embed-wrap {
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+    }
+    .youtube-facade-btn {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      border: none;
+      cursor: pointer;
+      background: #000;
+    }
+    .youtube-facade-btn img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center center;
+    }
+    .youtube-facade-btn .youtube-play-label {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.32);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #fff;
+      pointer-events: none;
+    }
+    .youtube-facade-note {
+      margin: 0.5rem 0 0;
+      font-size: 0.85rem;
+      color: var(--brand-muted);
+    }
+    .video-player-box--native {
+      padding-bottom: 0;
+      height: auto;
     }
     .video-item video {
       display: block;
@@ -149,34 +219,62 @@
     <ul class="video-list">
       <li class="video-item" id="pbj-video">
         <h2>PBJ vs PB and Fruit</h2>
-        <div class="video-player-box">
-          <video id="pbjVideoPlayer" controls playsinline preload="none">
-            <source src="videos/PBJ_Video.mp4" type="video/mp4">
-            <source src="videos/PB&amp;J_Video.mov" type="video/quicktime">
-            Your browser cannot play this video inline.
-          </video>
-          <p id="pbjVideoError" class="video-error" role="alert"></p>
+        <div class="youtube-facade-wrap">
+          <div id="pbjYoutubeFacade" class="youtube-facade youtube-frame youtube-frame--landscape">
+            <button type="button" class="youtube-facade-btn" id="pbjYoutubePlayBtn" aria-label="Play PBJ vs PB and Fruit video">
+              <img
+                id="pbjYoutubePoster"
+                src=""
+                alt="PBJ vs PB and Fruit — first frame preview"
+              >
+              <span class="youtube-play-label">▶ Play video</span>
+            </button>
+          </div>
+          <div id="pbjYoutubeEmbed" class="youtube-embed-wrap youtube-frame youtube-frame--landscape" hidden>
+            <iframe
+              id="pbjYoutubePlayer"
+              title="PBJ vs PB and Fruit on YouTube"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen
+            ></iframe>
+          </div>
         </div>
-        <p>
-          <a class="video-file-link" href="videos/PB&amp;J_Video.mov" download>Open or download video file</a>
+        <p id="pbjYoutubeLocalNote" class="youtube-facade-note" hidden>
+          For the embedded player, open this site with Live Server or GitHub Pages. You can still play via the button (opens YouTube).
         </p>
-        <p class="video-note">
-          Tip: If the player stays black or won&apos;t play, open the file link above (works in Safari / QuickTime),
-          or add <strong>videos/PBJ_Video.mp4</strong> (MP4 under ~100&nbsp;MB) for Chrome and GitHub Pages.
+        <p>
+          <a class="video-file-link" href="https://youtu.be/8TniDLf4QaI" target="_blank" rel="noopener noreferrer">Watch on YouTube</a>
         </p>
       </li>
       <li class="video-item" id="goldfish-video">
         <h2>Snack series: Goldfish, Cheez it</h2>
-        <div class="video-player-box">
-          <video id="goldfishVideoPlayer" controls playsinline preload="none">
-            <source src="videos/Goldfish_Video.mp4" type="video/mp4">
-            <source src="videos/Goldfish_Videos.mov" type="video/quicktime">
-            Your browser cannot play this video inline.
-          </video>
-          <p id="goldfishVideoError" class="video-error" role="alert"></p>
+        <div class="youtube-facade-wrap">
+          <div id="snackYoutubeFacade" class="youtube-facade youtube-frame youtube-frame--portrait">
+            <button type="button" class="youtube-facade-btn" id="snackYoutubePlayBtn" aria-label="Play Snack series video">
+              <img
+                id="snackYoutubePoster"
+                src=""
+                alt="Snack series — first frame preview"
+              >
+              <span class="youtube-play-label">▶ Play video</span>
+            </button>
+          </div>
+          <div id="snackYoutubeEmbed" class="youtube-embed-wrap youtube-frame youtube-frame--portrait" hidden>
+            <iframe
+              id="snackYoutubePlayer"
+              title="Snack series: Goldfish, Cheez it on YouTube"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen
+            ></iframe>
+          </div>
         </div>
+        <p id="snackYoutubeLocalNote" class="youtube-facade-note" hidden>
+          For the embedded player, open this site with Live Server or GitHub Pages. You can still play via the button (opens YouTube).
+        </p>
         <p>
-          <a class="video-file-link" href="videos/Goldfish_Videos.mov">Open or download video file</a>
+          <a class="video-file-link" href="https://youtube.com/shorts/_jnvkHxHmvQ" target="_blank" rel="noopener noreferrer">Watch on YouTube</a>
         </p>
       </li>
       <li class="video-item">
@@ -203,76 +301,121 @@
   </footer>
   <script>
     (function () {
-      var ua = navigator.userAgent;
-      var isSafari = /Safari/i.test(ua) && !/Chrome|Chromium|Edg/i.test(ua);
-      var isChromiumOnWindows =
-        /Windows/i.test(ua) && /Chrome|Edg/i.test(ua) && !isSafari;
-
       var playParam = new URLSearchParams(window.location.search).get("play");
+      var isFileProtocol = window.location.protocol === "file:";
 
-      function initVideo(config) {
-        var video = document.getElementById(config.playerId);
-        var errBox = document.getElementById(config.errorId);
-        if (!video || !errBox) return;
-
-        function showError(msg) {
-          errBox.textContent = msg;
-          errBox.classList.add("is-visible");
+      function buildYoutubeEmbedSrc(videoId, autoplay) {
+        var params = [
+          "rel=0",
+          "modestbranding=1",
+          "start=0",
+          "t=0",
+          "playsinline=1",
+          "iv_load_policy=3",
+        ];
+        if (autoplay) params.push("autoplay=1");
+        if (!isFileProtocol && window.location.origin) {
+          params.push("origin=" + encodeURIComponent(window.location.origin));
         }
+        return (
+          "https://www.youtube-nocookie.com/embed/" +
+          videoId +
+          "?" +
+          params.join("&")
+        );
+      }
 
-        if (isChromiumOnWindows) {
-          showError(
-            "This .mov file may not play in Chrome or Edge on Windows. " +
-              "Use “Open or download video file” below, or add an MP4 version for all browsers."
-          );
-        }
+      function applyYoutubePoster(img, urls) {
+        if (!img || !urls || !urls.length) return;
+        var index = 0;
+        img.src = urls[0];
+        img.onerror = function () {
+          index += 1;
+          if (index < urls.length) {
+            img.src = urls[index];
+          }
+        };
+      }
 
-        video.addEventListener("error", function () {
-          showError(
-            "Could not load the video in this browser. " +
-              "Try “Open or download video file” below, use Safari for .mov, or convert to MP4."
-          );
-        });
-
-        if (window.location.protocol === "file:") {
-          showError(
-            "You are viewing the site from a file on disk. Use Live Server or GitHub Pages (http://) " +
-              "so the video can load reliably."
-          );
-        }
-
+      function setupYoutubeSection(opts) {
+        var facade = document.getElementById(opts.facadeId);
+        var playBtn = document.getElementById(opts.playBtnId);
+        var embedWrap = document.getElementById(opts.embedWrapId);
+        var iframe = document.getElementById(opts.iframeId);
+        var localNote = document.getElementById(opts.localNoteId);
+        var posterImg = opts.posterId
+          ? document.getElementById(opts.posterId)
+          : null;
         var shouldAutoplay =
-          playParam === config.playKey || window.location.hash === config.hash;
+          playParam === opts.playKey || window.location.hash === opts.hash;
+
+        applyYoutubePoster(posterImg, opts.posterUrls);
+
+        function loadPlayer(autoplay) {
+          if (isFileProtocol) {
+            window.open(opts.watchUrl + (opts.watchUrl.indexOf("?") >= 0 ? "&" : "?") + "t=0", "_blank", "noopener,noreferrer");
+            return;
+          }
+          if (!iframe || !embedWrap || !facade) return;
+          iframe.src = buildYoutubeEmbedSrc(opts.videoId, !!autoplay);
+          facade.hidden = true;
+          embedWrap.hidden = false;
+        }
+
+        if (playBtn) {
+          playBtn.addEventListener("click", function () {
+            loadPlayer(true);
+          });
+        }
+
+        if (isFileProtocol && localNote) {
+          localNote.hidden = false;
+        }
 
         if (shouldAutoplay) {
-          var section = document.getElementById(config.sectionId);
+          var section = document.getElementById(opts.sectionId);
           if (section) {
             section.scrollIntoView({ behavior: "smooth", block: "start" });
-          }
-          function tryPlay() {
-            video.play().catch(function () {});
-          }
-          if (video.readyState >= 2) {
-            setTimeout(tryPlay, 400);
-          } else {
-            video.addEventListener("loadeddata", function () {
-              setTimeout(tryPlay, 200);
-            }, { once: true });
           }
         }
       }
 
-      initVideo({
-        playerId: "pbjVideoPlayer",
-        errorId: "pbjVideoError",
+      setupYoutubeSection({
+        videoId: "8TniDLf4QaI",
+        watchUrl: "https://youtu.be/8TniDLf4QaI",
+        posterId: "pbjYoutubePoster",
+        posterUrls: [
+          "https://i.ytimg.com/vi/8TniDLf4QaI/maxresdefault.jpg",
+          "https://i.ytimg.com/vi/8TniDLf4QaI/sddefault.jpg",
+          "https://i.ytimg.com/vi/8TniDLf4QaI/hqdefault.jpg",
+          "images/PBJ_Video_Poster.jpg",
+          "images/PBJ_Cover.jpg",
+        ],
+        facadeId: "pbjYoutubeFacade",
+        playBtnId: "pbjYoutubePlayBtn",
+        embedWrapId: "pbjYoutubeEmbed",
+        iframeId: "pbjYoutubePlayer",
+        localNoteId: "pbjYoutubeLocalNote",
         sectionId: "pbj-video",
         playKey: "pbj",
         hash: "#pbj-video",
       });
 
-      initVideo({
-        playerId: "goldfishVideoPlayer",
-        errorId: "goldfishVideoError",
+      setupYoutubeSection({
+        videoId: "_jnvkHxHmvQ",
+        watchUrl: "https://youtube.com/shorts/_jnvkHxHmvQ",
+        posterId: "snackYoutubePoster",
+        posterUrls: [
+          "https://i.ytimg.com/vi/_jnvkHxHmvQ/oardefault.jpg",
+          "https://i.ytimg.com/vi/_jnvkHxHmvQ/maxresdefault.jpg",
+          "https://i.ytimg.com/vi/_jnvkHxHmvQ/hqdefault.jpg",
+          "images/Goldfish_Video_Poster.jpg",
+        ],
+        facadeId: "snackYoutubeFacade",
+        playBtnId: "snackYoutubePlayBtn",
+        embedWrapId: "snackYoutubeEmbed",
+        iframeId: "snackYoutubePlayer",
+        localNoteId: "snackYoutubeLocalNote",
         sectionId: "goldfish-video",
         playKey: "goldfish",
         hash: "#goldfish-video",
