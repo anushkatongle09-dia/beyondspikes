@@ -450,7 +450,7 @@
       color: rgba(255, 255, 255, 0.85);
     }
     #current-analysis.band-clickable {
-      padding: 0;
+      padding: clamp(18px, 3vw, 26px);
     }
     #blood-sugar-patterns .band-inner {
       flex: 1 1 auto;
@@ -461,14 +461,17 @@
       align-items: stretch;
       justify-content: flex-start;
       width: 100%;
-      min-height: 100%;
       flex: 1 1 auto;
-      padding: clamp(18px, 3vw, 26px);
       box-sizing: border-box;
       color: inherit;
       text-decoration: none;
       cursor: pointer;
       transition: filter 0.2s ease;
+    }
+    .band-pane-link--visual {
+      min-height: 0;
+      padding: 0;
+      margin-top: 0.25rem;
     }
     .band-pane-link:hover {
       filter: brightness(1.06);
@@ -486,6 +489,10 @@
       line-height: 1.4;
       color: rgba(255, 255, 255, 0.9);
       font-style: italic;
+    }
+    #current-analysis .band-video-link {
+      font-style: normal;
+      color: #fff;
     }
     .pbj-images-wrap {
       display: flex;
@@ -776,13 +783,16 @@
       </section>
 
       <section id="current-analysis" class="content-band band-green band-clickable" aria-labelledby="heading-current">
-        <a class="band-pane-link" href="tested-my-videos.html?play=pbj#pbj-video" aria-label="Watch PBJ vs PB and Fruit video on My Videos">
-          <div class="band-inner">
-            <div class="band-copy-above-images">
-              <h2 id="heading-current">PBJ Vs PB&amp;Fruit</h2>
-              <p class="band-detail">Using commonly available Peanut Butter, Jelly and bread brands</p>
-              <p class="band-click-hint">Click the icons to view the video for details</p>
-            </div>
+        <div class="band-inner">
+          <div class="band-copy-above-images">
+            <h2 id="heading-current">PBJ Vs PB&amp;Fruit</h2>
+            <p class="band-detail">Using commonly available Peanut Butter, Jelly and bread brands</p>
+            <p class="band-click-hint">
+              <a class="band-video-link" href="tested-my-videos.html#pbj-video">Watch the PB&amp;J video</a>
+              — or click the pictures below
+            </p>
+          </div>
+          <a class="band-pane-link band-pane-link--visual" href="tested-my-videos.html#pbj-video" aria-label="Watch PBJ vs PB and Fruit video on My Videos">
             <div class="band-visual-area">
               <div class="pbj-images-wrap">
                 <div class="pbj-img-cell pbj-img-cell--cover">
@@ -793,8 +803,8 @@
                 </div>
               </div>
             </div>
-          </div>
-        </a>
+          </a>
+        </div>
       </section>
     </section>
   </main>
