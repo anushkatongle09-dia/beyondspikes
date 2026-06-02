@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Glucometers · Beyond The Spikes</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <style>
     :root {
       --brand-primary: #f97316;
@@ -92,11 +92,69 @@
       font-size: 0.95rem;
       color: var(--brand-muted);
     }
-    .video-placeholder {
-      padding: 2.5rem 1rem;
+    .youtube-frame {
+      position: relative;
+      width: 100%;
+      margin: 0 auto;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #000;
+      aspect-ratio: 16 / 9;
+    }
+    .youtube-embed-wrap iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+    .youtube-facade-btn {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      border: none;
+      cursor: pointer;
+      background: #000;
+    }
+    .youtube-facade-btn img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center center;
+    }
+    .youtube-facade-btn .youtube-play-label {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.32);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #fff;
+      pointer-events: none;
+    }
+    .youtube-facade-note {
+      margin: 0.5rem 0 0;
+      font-size: 0.85rem;
       color: var(--brand-muted);
-      font-size: 0.95rem;
-      line-height: 1.5;
+      text-align: left;
+    }
+    .video-file-link {
+      display: inline-block;
+      margin-top: 0.75rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--brand-primary);
+      text-decoration: none;
+    }
+    .video-file-link:hover {
+      text-decoration: underline;
     }
     footer {
       text-align: center;
@@ -136,9 +194,31 @@
     <h2 id="how-to-video">How to take a blood sugar reading</h2>
     <p>Refer to the video below to understand how we take blood sugar readings:</p>
     <figure class="video-block">
-      <div class="video-placeholder" aria-label="Video placeholder">
-        Video: taking a blood sugar reading (how to use a glucometer)
+      <div id="glucometerYoutubeFacade" class="youtube-facade youtube-frame">
+        <button type="button" class="youtube-facade-btn" id="glucometerYoutubePlayBtn" aria-label="Play glucometer how-to video">
+          <img
+            id="glucometerYoutubePoster"
+            src=""
+            alt="How to use a glucometer — video preview"
+          >
+          <span class="youtube-play-label">▶ Play video</span>
+        </button>
       </div>
+      <div id="glucometerYoutubeEmbed" class="youtube-embed-wrap youtube-frame" hidden>
+        <iframe
+          id="glucometerYoutubePlayer"
+          title="How to use a glucometer on YouTube"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen
+        ></iframe>
+      </div>
+      <p id="glucometerYoutubeLocalNote" class="youtube-facade-note" hidden>
+        For the embedded player, open this site with Live Server or GitHub Pages. You can still play via the button (opens YouTube).
+      </p>
+      <p>
+        <a class="video-file-link" href="https://youtu.be/TF41tlHkL94" target="_blank" rel="noopener noreferrer">Watch on YouTube</a>
+      </p>
       <figcaption>How to use a glucometer — taking a blood sugar reading</figcaption>
     </figure>
   </main>
@@ -146,5 +226,77 @@
   <footer>
     © 2026 Beyond The Spikes · All rights reserved.
   </footer>
+  <script>
+    (function () {
+      var videoId = "TF41tlHkL94";
+      var watchUrl = "https://youtu.be/" + videoId;
+      var isFileProtocol = window.location.protocol === "file:";
+
+      function buildYoutubeEmbedSrc(autoplay) {
+        var params = [
+          "rel=0",
+          "modestbranding=1",
+          "start=0",
+          "t=0",
+          "playsinline=1",
+          "iv_load_policy=3",
+        ];
+        if (autoplay) params.push("autoplay=1");
+        if (!isFileProtocol && window.location.origin) {
+          params.push("origin=" + encodeURIComponent(window.location.origin));
+        }
+        return (
+          "https://www.youtube-nocookie.com/embed/" +
+          videoId +
+          "?" +
+          params.join("&")
+        );
+      }
+
+      var posterUrls = [
+        "https://i.ytimg.com/vi/" + videoId + "/maxresdefault.jpg",
+        "https://i.ytimg.com/vi/" + videoId + "/sddefault.jpg",
+        "https://i.ytimg.com/vi/" + videoId + "/hqdefault.jpg",
+      ];
+      var posterImg = document.getElementById("glucometerYoutubePoster");
+      var posterIndex = 0;
+      if (posterImg) {
+        posterImg.src = posterUrls[0];
+        posterImg.onerror = function () {
+          posterIndex += 1;
+          if (posterIndex < posterUrls.length) {
+            posterImg.src = posterUrls[posterIndex];
+          }
+        };
+      }
+
+      var facade = document.getElementById("glucometerYoutubeFacade");
+      var playBtn = document.getElementById("glucometerYoutubePlayBtn");
+      var embedWrap = document.getElementById("glucometerYoutubeEmbed");
+      var iframe = document.getElementById("glucometerYoutubePlayer");
+      var localNote = document.getElementById("glucometerYoutubeLocalNote");
+
+      function loadPlayer(autoplay) {
+        if (isFileProtocol) {
+          window.open(watchUrl + "?t=0", "_blank", "noopener,noreferrer");
+          return;
+        }
+        if (!iframe || !embedWrap || !facade) return;
+        iframe.src = buildYoutubeEmbedSrc(!!autoplay);
+        facade.hidden = true;
+        embedWrap.hidden = false;
+      }
+
+      if (playBtn) {
+        playBtn.addEventListener("click", function () {
+          loadPlayer(true);
+        });
+      }
+
+      if (isFileProtocol && localNote) {
+        localNote.hidden = false;
+      }
+    })();
+  </script>
 </body>
 </html>
