@@ -217,6 +217,36 @@
     <p class="page-lead">Meal experiments and spike comparisons.</p>
 
     <ul class="video-list">
+      <li class="video-item" id="good-vs-bad-spike-video">
+        <h2>What is a Good vs. Bad Blood Glucose Spike?</h2>
+        <div class="youtube-facade-wrap">
+          <div id="goodVsBadSpikeYoutubeFacade" class="youtube-facade youtube-frame youtube-frame--portrait">
+            <button type="button" class="youtube-facade-btn" id="goodVsBadSpikeYoutubePlayBtn" aria-label="Play What is a Good vs. Bad Blood Glucose Spike video">
+              <img
+                id="goodVsBadSpikeYoutubePoster"
+                src=""
+                alt="What is a Good vs. Bad Blood Glucose Spike — first frame preview"
+              >
+              <span class="youtube-play-label">▶ Play video</span>
+            </button>
+          </div>
+          <div id="goodVsBadSpikeYoutubeEmbed" class="youtube-embed-wrap youtube-frame youtube-frame--portrait" hidden>
+            <iframe
+              id="goodVsBadSpikeYoutubePlayer"
+              title="What is a Good vs. Bad Blood Glucose Spike on YouTube"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </div>
+        <p id="goodVsBadSpikeYoutubeLocalNote" class="youtube-facade-note" hidden>
+          For the embedded player, open this site with Live Server or GitHub Pages. You can still play via the button (opens YouTube).
+        </p>
+        <p>
+          <a class="video-file-link" href="https://youtube.com/shorts/KrnAx9nodog" target="_blank" rel="noopener noreferrer">Watch on YouTube</a>
+        </p>
+      </li>
       <li class="video-item" id="pbj-video">
         <h2>PBJ vs PB and Fruit</h2>
         <div class="youtube-facade-wrap">
@@ -379,6 +409,25 @@
           }
         }
       }
+
+      setupYoutubeSection({
+        videoId: "KrnAx9nodog",
+        watchUrl: "https://youtube.com/shorts/KrnAx9nodog",
+        posterId: "goodVsBadSpikeYoutubePoster",
+        posterUrls: [
+          "https://i.ytimg.com/vi/KrnAx9nodog/oardefault.jpg",
+          "https://i.ytimg.com/vi/KrnAx9nodog/maxresdefault.jpg",
+          "https://i.ytimg.com/vi/KrnAx9nodog/hqdefault.jpg",
+        ],
+        facadeId: "goodVsBadSpikeYoutubeFacade",
+        playBtnId: "goodVsBadSpikeYoutubePlayBtn",
+        embedWrapId: "goodVsBadSpikeYoutubeEmbed",
+        iframeId: "goodVsBadSpikeYoutubePlayer",
+        localNoteId: "goodVsBadSpikeYoutubeLocalNote",
+        sectionId: "good-vs-bad-spike-video",
+        playKey: "good-vs-bad-spike",
+        hash: "#good-vs-bad-spike-video",
+      });
 
       setupYoutubeSection({
         videoId: "8TniDLf4QaI",

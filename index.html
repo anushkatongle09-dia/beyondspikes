@@ -449,6 +449,7 @@
       line-height: 1.55;
       color: rgba(255, 255, 255, 0.85);
     }
+    #blood-sugar-patterns.band-clickable,
     #current-analysis.band-clickable {
       padding: clamp(18px, 3vw, 26px);
     }
@@ -480,10 +481,11 @@
       outline: 3px solid #fff;
       outline-offset: -4px;
     }
+    #blood-sugar-patterns .band-detail,
     #current-analysis .band-detail {
       margin-bottom: 0.35rem;
     }
-    #current-analysis .band-click-hint {
+    .content-band .band-click-hint {
       margin: 0;
       font-size: clamp(0.78rem, 1.4vw, 0.88rem);
       line-height: 1.4;
@@ -767,7 +769,7 @@
 
   <main class="page-content">
     <section class="tri-columns" aria-label="Blood sugar overview">
-      <section id="blood-sugar-patterns" class="content-band band-blue" aria-labelledby="heading-patterns">
+      <section id="blood-sugar-patterns" class="content-band band-blue band-clickable" aria-labelledby="heading-patterns">
         <div class="band-inner">
           <div class="band-copy-above-images">
             <h2 id="heading-patterns">Blood Sugar Patterns</h2>
@@ -775,10 +777,13 @@
               Patterns in how glucose rises and falls after meals can reveal how your body responds to food and habits.
               Use this chart as a reference as you explore your own rhythms.
             </p>
+            <p class="band-click-hint">Click the picture below to watch the video</p>
           </div>
-          <div class="band-visual-area">
-            <img class="pattern-img" src="images/SugarSpikes00.png" alt="Illustration comparing sharp versus gradual blood sugar curves after eating">
-          </div>
+          <a class="band-pane-link band-pane-link--visual" href="tested-my-videos.html#good-vs-bad-spike-video" aria-label="Watch What is a Good vs. Bad Blood Glucose Spike video on My Videos">
+            <div class="band-visual-area">
+              <img class="pattern-img" src="images/SugarSpikes00.png" alt="Good vs. bad blood glucose spike comparison — click to watch video">
+            </div>
+          </a>
         </div>
       </section>
 
