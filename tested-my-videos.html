@@ -307,6 +307,36 @@
           <a class="video-file-link" href="https://youtube.com/shorts/_jnvkHxHmvQ" target="_blank" rel="noopener noreferrer">Watch on YouTube</a>
         </p>
       </li>
+      <li class="video-item" id="smoothies-protein-bowls-video">
+        <h2>Smoothies/Protein Bowls</h2>
+        <div class="youtube-facade-wrap">
+          <div id="smoothiesProteinBowlsYoutubeFacade" class="youtube-facade youtube-frame youtube-frame--portrait">
+            <button type="button" class="youtube-facade-btn" id="smoothiesProteinBowlsYoutubePlayBtn" aria-label="Play Smoothies/Protein Bowls video">
+              <img
+                id="smoothiesProteinBowlsYoutubePoster"
+                src=""
+                alt="Smoothies/Protein Bowls — first frame preview"
+              >
+              <span class="youtube-play-label">▶ Play video</span>
+            </button>
+          </div>
+          <div id="smoothiesProteinBowlsYoutubeEmbed" class="youtube-embed-wrap youtube-frame youtube-frame--portrait" hidden>
+            <iframe
+              id="smoothiesProteinBowlsYoutubePlayer"
+              title="Smoothies/Protein Bowls on YouTube"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </div>
+        <p id="smoothiesProteinBowlsYoutubeLocalNote" class="youtube-facade-note" hidden>
+          For the embedded player, open this site with Live Server or GitHub Pages. You can still play via the button (opens YouTube).
+        </p>
+        <p>
+          <a class="video-file-link" href="https://youtube.com/shorts/ST0w84S5Ebc" target="_blank" rel="noopener noreferrer">Watch on YouTube</a>
+        </p>
+      </li>
       <li class="video-item">
         <h2>Fruit series: watermelon vs watermelon with Tajin</h2>
         <p class="coming-soon">Coming Soon</p>
@@ -468,6 +498,25 @@
         sectionId: "goldfish-video",
         playKey: "goldfish",
         hash: "#goldfish-video",
+      });
+
+      setupYoutubeSection({
+        videoId: "ST0w84S5Ebc",
+        watchUrl: "https://youtube.com/shorts/ST0w84S5Ebc",
+        posterId: "smoothiesProteinBowlsYoutubePoster",
+        posterUrls: [
+          "https://i.ytimg.com/vi/ST0w84S5Ebc/oardefault.jpg",
+          "https://i.ytimg.com/vi/ST0w84S5Ebc/maxresdefault.jpg",
+          "https://i.ytimg.com/vi/ST0w84S5Ebc/hqdefault.jpg",
+        ],
+        facadeId: "smoothiesProteinBowlsYoutubeFacade",
+        playBtnId: "smoothiesProteinBowlsYoutubePlayBtn",
+        embedWrapId: "smoothiesProteinBowlsYoutubeEmbed",
+        iframeId: "smoothiesProteinBowlsYoutubePlayer",
+        localNoteId: "smoothiesProteinBowlsYoutubeLocalNote",
+        sectionId: "smoothies-protein-bowls-video",
+        playKey: "smoothies-protein-bowls",
+        hash: "#smoothies-protein-bowls-video",
       });
     })();
   </script>
