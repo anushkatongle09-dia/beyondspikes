@@ -118,7 +118,25 @@
       margin-bottom: 0.35rem;
     }
     .recipe-content p {
+      margin: 0 0 1rem;
+    }
+    .recipe-content p:last-child {
+      margin-bottom: 0;
+    }
+    .nutrition-facts {
       margin: 0;
+      padding: 0.75rem 1rem;
+      background: #fff7ed;
+      border: 1px solid var(--brand-border);
+      border-radius: 8px;
+      list-style: none;
+    }
+    .nutrition-facts li {
+      margin-bottom: 0.25rem;
+      font-size: 0.95rem;
+    }
+    .nutrition-facts li:last-child {
+      margin-bottom: 0;
     }
     footer {
       text-align: center;
@@ -158,6 +176,14 @@
             </ul>
             <h3>Directions</h3>
             <p>Blend the mango purée and Greek yogurt, then top with fruit of your choice and granola.</p>
+            <h3>Nutrition Facts</h3>
+            <ul class="nutrition-facts">
+              <li>Calories: ~350 kcal</li>
+              <li>Protein: ~17 g</li>
+              <li>Carbohydrates: ~61 g</li>
+              <li>Fiber: ~8 g</li>
+              <li>Fat: ~6 g</li>
+            </ul>
           </div>
         </div>
       </li>
