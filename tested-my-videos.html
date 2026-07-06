@@ -345,9 +345,35 @@
         <h2>Ethnic Foods: Cheese Quesadillas vs Bean veggie Quesadillas</h2>
         <p class="coming-soon">Coming Soon</p>
       </li>
-      <li class="video-item">
+      <li class="video-item" id="pizza-vs-salad-video">
         <h2>Common Lunch/Dinner: Pizza vs Salad Followed by Pizza</h2>
-        <p class="coming-soon">Coming Soon</p>
+        <div class="youtube-facade-wrap">
+          <div id="pizzaVsSaladYoutubeFacade" class="youtube-facade youtube-frame youtube-frame--landscape">
+            <button type="button" class="youtube-facade-btn" id="pizzaVsSaladYoutubePlayBtn" aria-label="Play Pizza vs Salad Followed by Pizza video">
+              <img
+                id="pizzaVsSaladYoutubePoster"
+                src=""
+                alt="Pizza vs Salad Followed by Pizza — first frame preview"
+              >
+              <span class="youtube-play-label">▶ Play video</span>
+            </button>
+          </div>
+          <div id="pizzaVsSaladYoutubeEmbed" class="youtube-embed-wrap youtube-frame youtube-frame--landscape" hidden>
+            <iframe
+              id="pizzaVsSaladYoutubePlayer"
+              title="Pizza vs Salad Followed by Pizza on YouTube"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </div>
+        <p id="pizzaVsSaladYoutubeLocalNote" class="youtube-facade-note" hidden>
+          For the embedded player, open this site with Live Server or GitHub Pages. You can still play via the button (opens YouTube).
+        </p>
+        <p>
+          <a class="video-file-link" href="https://youtu.be/6qxkD2JpsLY" target="_blank" rel="noopener noreferrer">Watch on YouTube</a>
+        </p>
       </li>
       <li class="video-item">
         <h2>School Lunch</h2>
@@ -517,6 +543,25 @@
         sectionId: "smoothies-protein-bowls-video",
         playKey: "smoothies-protein-bowls",
         hash: "#smoothies-protein-bowls-video",
+      });
+
+      setupYoutubeSection({
+        videoId: "6qxkD2JpsLY",
+        watchUrl: "https://youtu.be/6qxkD2JpsLY",
+        posterId: "pizzaVsSaladYoutubePoster",
+        posterUrls: [
+          "https://i.ytimg.com/vi/6qxkD2JpsLY/maxresdefault.jpg",
+          "https://i.ytimg.com/vi/6qxkD2JpsLY/sddefault.jpg",
+          "https://i.ytimg.com/vi/6qxkD2JpsLY/hqdefault.jpg",
+        ],
+        facadeId: "pizzaVsSaladYoutubeFacade",
+        playBtnId: "pizzaVsSaladYoutubePlayBtn",
+        embedWrapId: "pizzaVsSaladYoutubeEmbed",
+        iframeId: "pizzaVsSaladYoutubePlayer",
+        localNoteId: "pizzaVsSaladYoutubeLocalNote",
+        sectionId: "pizza-vs-salad-video",
+        playKey: "pizza-vs-salad",
+        hash: "#pizza-vs-salad-video",
       });
     })();
   </script>
