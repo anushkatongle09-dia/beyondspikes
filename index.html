@@ -353,21 +353,24 @@
     .tri-columns {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(2, minmax(0, 1fr));
       gap: 0;
       padding: 0;
       align-items: stretch;
       box-sizing: border-box;
-      min-height: max(560px, calc(100svh - var(--sticky-header-estimate)));
       scroll-margin-top: var(--sticky-header-estimate);
       background: transparent;
       width: 100%;
+    }
+    .tri-columns .content-band {
+      min-height: max(300px, calc(38svh - var(--sticky-header-estimate) / 2));
     }
     .content-band {
       display: flex;
       flex-direction: column;
       align-items: stretch;
       justify-content: flex-start;
-      padding: clamp(18px, 3vw, 26px);
+      padding: clamp(14px, 2.5vw, 22px);
       box-sizing: border-box;
       min-height: 0;
     }
@@ -383,12 +386,16 @@
       border-radius: 0;
       box-shadow: none;
     }
-    .tri-columns > .content-band:first-child {
+    .tri-columns > .content-band:nth-child(1) {
       border-top-left-radius: 8px;
+    }
+    .tri-columns > .content-band:nth-child(2) {
+      border-top-right-radius: 8px;
+    }
+    .tri-columns > .content-band:nth-child(3) {
       border-bottom-left-radius: 8px;
     }
-    .tri-columns > .content-band:last-child {
-      border-top-right-radius: 8px;
+    .tri-columns > .content-band:nth-child(4) {
       border-bottom-right-radius: 8px;
     }
     .band-inner {
@@ -397,8 +404,8 @@
       text-align: center;
     }
     .tri-columns .band-inner > h2 {
-      margin: 0 0 0.35rem;
-      font-size: clamp(1.2rem, 2.8vw, 1.65rem);
+      margin: 0 0 0.25rem;
+      font-size: clamp(1.05rem, 2.2vw, 1.4rem);
       font-weight: 700;
       line-height: 1.15;
       text-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
@@ -410,8 +417,7 @@
       line-height: 1.65;
       color: rgba(255,255,255,0.88);
     }
-    #blood-sugar-patterns .band-inner,
-    #current-analysis .band-inner {
+    .content-band.band-clickable .band-inner {
       display: flex;
       flex-direction: column;
       width: 100%;
@@ -420,7 +426,7 @@
     }
     .band-copy-above-images {
       flex: 0 0 auto;
-      min-height: clamp(6.75rem, 14vw, 9rem);
+      min-height: clamp(5rem, 10vw, 6.5rem);
     }
     .band-visual-area {
       flex: 1 1 auto;
@@ -449,12 +455,8 @@
       line-height: 1.55;
       color: rgba(255, 255, 255, 0.85);
     }
-    #blood-sugar-patterns.band-clickable,
-    #current-analysis.band-clickable {
-      padding: clamp(18px, 3vw, 26px);
-    }
-    #blood-sugar-patterns .band-inner {
-      flex: 1 1 auto;
+    .content-band.band-clickable {
+      padding: clamp(14px, 2.5vw, 22px);
     }
     .band-pane-link {
       display: flex;
@@ -472,7 +474,7 @@
     .band-pane-link--visual {
       min-height: 0;
       padding: 0;
-      margin-top: 0.25rem;
+      margin-top: 0.5rem;
     }
     .band-pane-link:hover {
       filter: brightness(1.06);
@@ -481,8 +483,7 @@
       outline: 3px solid #fff;
       outline-offset: -4px;
     }
-    #blood-sugar-patterns .band-detail,
-    #current-analysis .band-detail {
+    .content-band .band-detail {
       margin-bottom: 0.35rem;
     }
     .content-band .band-click-hint {
@@ -507,7 +508,7 @@
     }
     .pbj-img-cell {
       display: flex;
-      align-items: flex-start;
+      align-items: center;
       justify-content: center;
       flex: 1 1 0;
       min-width: 0;
@@ -523,20 +524,82 @@
       width: auto;
       height: auto;
       max-width: 100%;
-      max-height: min(58vh, 480px);
+      max-height: min(36vh, 280px);
     }
-    .pbj-img-cell--curve img {
-      transform: translateY(-14px) scaleY(0.9);
-      transform-origin: center top;
+    #current-analysis .band-pane-link--visual {
+      margin-top: 0.85rem;
     }
-    .pbj-img-cell--curve {
-      align-self: flex-start;
+    #current-analysis .pbj-images-wrap {
+      margin-top: 0.25rem;
     }
-    .pbj-img-cell--cover {
+    #current-analysis .pbj-img-cell--curve img {
+      transform: translateY(10px) scaleY(0.9);
+      transform-origin: center center;
+    }
+    #current-analysis .pbj-img-cell--curve {
       align-self: center;
     }
-    .pbj-img-cell--cover img {
-      transform: translateY(-24px);
+    #current-analysis .pbj-img-cell--cover {
+      align-self: center;
+    }
+    #current-analysis .pbj-img-cell--cover img {
+      transform: translateY(10px);
+    }
+    #smoothies-protein-bowls .pbj-images-wrap {
+      align-items: center;
+      gap: 14px;
+    }
+    #smoothies-protein-bowls .pbj-img-cell {
+      align-items: center;
+      align-self: stretch;
+      min-height: min(34vh, 270px);
+    }
+    #smoothies-protein-bowls .pbj-img-cell img {
+      transform: none;
+      object-fit: contain;
+    }
+    #smoothies-protein-bowls .pbj-img-cell--cover img {
+      max-height: min(38vh, 300px);
+    }
+    #smoothies-protein-bowls .pbj-img-cell--curve img {
+      max-height: min(34vh, 250px);
+      transform: translateY(14px);
+    }
+    #pizza-vs-salad .band-visual-area {
+      align-items: center;
+      justify-content: center;
+    }
+    #pizza-vs-salad .band-pane-link--visual {
+      margin-top: 1rem;
+    }
+    #pizza-vs-salad .pbj-images-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 0.5rem;
+      width: 100%;
+    }
+    #pizza-vs-salad .pbj-img-cell {
+      flex: 1 1 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 0;
+      height: min(34vh, 255px);
+      min-height: min(34vh, 255px);
+      max-height: min(34vh, 255px);
+    }
+    #pizza-vs-salad .pbj-img-cell img {
+      display: block;
+      width: auto;
+      height: auto;
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      object-position: center center;
+      transform: none;
+      margin: 0 auto;
     }
     @media (max-width: 520px) {
       .pbj-images-wrap {
@@ -544,21 +607,39 @@
         min-height: auto;
       }
       .pbj-img-cell img {
-        max-height: 280px;
+        max-height: 220px;
+      }
+      #smoothies-protein-bowls .pbj-img-cell {
+        min-height: auto;
+      }
+      #smoothies-protein-bowls .pbj-img-cell--cover img {
+        max-height: 220px;
+      }
+      #smoothies-protein-bowls .pbj-img-cell--curve img {
+        max-height: 200px;
+        transform: translateY(8px);
+      }
+      #pizza-vs-salad .pbj-img-cell {
+        height: 210px;
+        min-height: 210px;
+        max-height: 210px;
       }
     }
     .pattern-img {
       display: block;
-      width: 98.325%;
-      max-width: none;
+      width: auto;
+      max-width: 92%;
       height: auto;
-      margin: 0;
-      position: relative;
-      left: 50%;
-      transform: translateX(-50%);
+      max-height: min(36vh, 280px);
+      margin: 0 auto;
       border-radius: 10px;
       box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
       vertical-align: top;
+    }
+    #blood-sugar-patterns .pattern-img {
+      position: static;
+      left: auto;
+      transform: none;
     }
     #blood-sugar-patterns.content-band {
       overflow-x: visible;
@@ -802,6 +883,50 @@
                 </div>
                 <div class="pbj-img-cell pbj-img-cell--curve">
                   <img class="pbj-img-curve" src="images/PBJ_Curve.jpg" alt="Blood sugar curve comparison — click to watch video">
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <section id="smoothies-protein-bowls" class="content-band band-green band-clickable" aria-labelledby="heading-smoothies">
+        <div class="band-inner">
+          <div class="band-copy-above-images">
+            <h2 id="heading-smoothies">Smoothies/Protein Bowls</h2>
+            <p class="band-detail">Comparing smoothie and protein bowl options for steadier glucose</p>
+            <p class="band-click-hint">Click the picture below to watch the video</p>
+          </div>
+          <a class="band-pane-link band-pane-link--visual" href="tested-my-videos.html#smoothies-protein-bowls-video" aria-label="Watch Smoothies/Protein Bowls video on My Videos">
+            <div class="band-visual-area">
+              <div class="pbj-images-wrap">
+                <div class="pbj-img-cell pbj-img-cell--cover">
+                  <img class="pbj-img-cover" src="images/MangoProteinSmoothieBowl.png" alt="Mango protein smoothie bowl — click to watch video">
+                </div>
+                <div class="pbj-img-cell pbj-img-cell--curve">
+                  <img class="pbj-img-curve" src="images/SmoothieBowl_Curve.png" alt="Mango smoothie bowl blood sugar spike — click to watch video">
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <section id="pizza-vs-salad" class="content-band band-blue band-clickable" aria-labelledby="heading-pizza">
+        <div class="band-inner">
+          <div class="band-copy-above-images">
+            <h2 id="heading-pizza">Pizza vs Salad Followed by Pizza</h2>
+            <p class="band-detail">Common lunch and dinner — how meal order affects blood sugar</p>
+            <p class="band-click-hint">Click the picture below to watch the video</p>
+          </div>
+          <a class="band-pane-link band-pane-link--visual" href="tested-my-videos.html#pizza-vs-salad-video" aria-label="Watch Pizza vs Salad Followed by Pizza video on My Videos">
+            <div class="band-visual-area">
+              <div class="pbj-images-wrap">
+                <div class="pbj-img-cell pbj-img-cell--cover">
+                  <img class="pbj-img-cover" src="images/Pizza_Cover.png" alt="Pizza meal comparison cover — click to watch video">
+                </div>
+                <div class="pbj-img-cell pbj-img-cell--curve">
+                  <img class="pbj-img-curve" src="images/Pizza_Curve.png" alt="Pizza blood sugar curve comparison — click to watch video">
                 </div>
               </div>
             </div>
