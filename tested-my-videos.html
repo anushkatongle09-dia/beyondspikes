@@ -194,6 +194,78 @@
       font-size: 0.85rem;
       color: var(--brand-muted);
     }
+    .video-carousel {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .video-carousel-viewport {
+      flex: 1 1 auto;
+      min-width: 0;
+      overflow: hidden;
+    }
+    .video-carousel-track {
+      display: flex;
+      transition: transform 0.35s ease;
+      will-change: transform;
+    }
+    .video-carousel-slide {
+      flex: 0 0 100%;
+      width: 100%;
+      min-width: 100%;
+      box-sizing: border-box;
+      padding: 0 0.15rem;
+    }
+    .video-carousel-slide h3 {
+      font-size: 1rem;
+      margin: 0 0 0.75rem;
+      color: var(--brand-text);
+      line-height: 1.35;
+      font-weight: 600;
+    }
+    .video-carousel-btn {
+      flex: 0 0 auto;
+      width: 2.35rem;
+      height: 2.35rem;
+      border-radius: 999px;
+      border: 2px solid var(--brand-primary);
+      background: var(--brand-white);
+      color: var(--brand-primary);
+      font-size: 1.5rem;
+      line-height: 1;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+    .video-carousel-btn:hover {
+      background: #fff7ed;
+    }
+    .video-carousel-btn:disabled {
+      opacity: 0.35;
+      cursor: default;
+    }
+    .video-carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 0.45rem;
+      margin-top: 0.85rem;
+    }
+    .video-carousel-dot {
+      width: 0.55rem;
+      height: 0.55rem;
+      border-radius: 999px;
+      border: none;
+      padding: 0;
+      background: #d1d5db;
+      cursor: pointer;
+    }
+    .video-carousel-dot.is-active {
+      background: var(--brand-primary);
+    }
     footer {
       text-align: center;
       padding: 1.25rem;
@@ -345,35 +417,77 @@
         <h2>Ethnic Foods: Cheese Quesadillas vs Bean veggie Quesadillas</h2>
         <p class="coming-soon">Coming Soon</p>
       </li>
-      <li class="video-item" id="pizza-vs-salad-video">
-        <h2>Common Lunch/Dinner: Pizza vs Salad Followed by Pizza</h2>
-        <div class="youtube-facade-wrap">
-          <div id="pizzaVsSaladYoutubeFacade" class="youtube-facade youtube-frame youtube-frame--landscape">
-            <button type="button" class="youtube-facade-btn" id="pizzaVsSaladYoutubePlayBtn" aria-label="Play Pizza vs Salad Followed by Pizza video">
-              <img
-                id="pizzaVsSaladYoutubePoster"
-                src=""
-                alt="Pizza vs Salad Followed by Pizza — first frame preview"
-              >
-              <span class="youtube-play-label">▶ Play video</span>
-            </button>
+      <li class="video-item" id="common-lunch-dinner">
+        <h2>Common Lunch/Dinner</h2>
+        <div class="video-carousel" id="lunchDinnerCarousel" data-carousel>
+          <button type="button" class="video-carousel-btn video-carousel-btn--prev" aria-label="Previous lunch/dinner video">‹</button>
+          <div class="video-carousel-viewport">
+            <div class="video-carousel-track">
+              <div class="video-carousel-slide" id="subway-video" data-slide-hash="subway-video" data-play-key="subway">
+                <h3>Subway</h3>
+                <div class="youtube-facade-wrap">
+                  <div id="subwayYoutubeFacade" class="youtube-facade youtube-frame youtube-frame--portrait">
+                    <button type="button" class="youtube-facade-btn" id="subwayYoutubePlayBtn" aria-label="Play Subway video">
+                      <img
+                        id="subwayYoutubePoster"
+                        src=""
+                        alt="Subway — first frame preview"
+                      >
+                      <span class="youtube-play-label">▶ Play video</span>
+                    </button>
+                  </div>
+                  <div id="subwayYoutubeEmbed" class="youtube-embed-wrap youtube-frame youtube-frame--portrait" hidden>
+                    <iframe
+                      id="subwayYoutubePlayer"
+                      title="Subway on YouTube"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      referrerpolicy="strict-origin-when-cross-origin"
+                      allowfullscreen
+                    ></iframe>
+                  </div>
+                </div>
+                <p id="subwayYoutubeLocalNote" class="youtube-facade-note" hidden>
+                  For the embedded player, open this site with Live Server or GitHub Pages. You can still play via the button (opens YouTube).
+                </p>
+                <p>
+                  <a class="video-file-link" href="https://youtube.com/shorts/sHccQQyYjaM" target="_blank" rel="noopener noreferrer">Watch on YouTube</a>
+                </p>
+              </div>
+              <div class="video-carousel-slide" id="pizza-vs-salad-video" data-slide-hash="pizza-vs-salad-video" data-play-key="pizza-vs-salad">
+                <h3>Pizza vs Salad Followed by Pizza</h3>
+                <div class="youtube-facade-wrap">
+                  <div id="pizzaVsSaladYoutubeFacade" class="youtube-facade youtube-frame youtube-frame--landscape">
+                    <button type="button" class="youtube-facade-btn" id="pizzaVsSaladYoutubePlayBtn" aria-label="Play Pizza vs Salad Followed by Pizza video">
+                      <img
+                        id="pizzaVsSaladYoutubePoster"
+                        src=""
+                        alt="Pizza vs Salad Followed by Pizza — first frame preview"
+                      >
+                      <span class="youtube-play-label">▶ Play video</span>
+                    </button>
+                  </div>
+                  <div id="pizzaVsSaladYoutubeEmbed" class="youtube-embed-wrap youtube-frame youtube-frame--landscape" hidden>
+                    <iframe
+                      id="pizzaVsSaladYoutubePlayer"
+                      title="Pizza vs Salad Followed by Pizza on YouTube"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      referrerpolicy="strict-origin-when-cross-origin"
+                      allowfullscreen
+                    ></iframe>
+                  </div>
+                </div>
+                <p id="pizzaVsSaladYoutubeLocalNote" class="youtube-facade-note" hidden>
+                  For the embedded player, open this site with Live Server or GitHub Pages. You can still play via the button (opens YouTube).
+                </p>
+                <p>
+                  <a class="video-file-link" href="https://youtu.be/6qxkD2JpsLY" target="_blank" rel="noopener noreferrer">Watch on YouTube</a>
+                </p>
+              </div>
+            </div>
           </div>
-          <div id="pizzaVsSaladYoutubeEmbed" class="youtube-embed-wrap youtube-frame youtube-frame--landscape" hidden>
-            <iframe
-              id="pizzaVsSaladYoutubePlayer"
-              title="Pizza vs Salad Followed by Pizza on YouTube"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              referrerpolicy="strict-origin-when-cross-origin"
-              allowfullscreen
-            ></iframe>
-          </div>
+          <button type="button" class="video-carousel-btn video-carousel-btn--next" aria-label="Next lunch/dinner video">›</button>
         </div>
-        <p id="pizzaVsSaladYoutubeLocalNote" class="youtube-facade-note" hidden>
-          For the embedded player, open this site with Live Server or GitHub Pages. You can still play via the button (opens YouTube).
-        </p>
-        <p>
-          <a class="video-file-link" href="https://youtu.be/6qxkD2JpsLY" target="_blank" rel="noopener noreferrer">Watch on YouTube</a>
-        </p>
+        <div class="video-carousel-dots" id="lunchDinnerCarouselDots" role="tablist" aria-label="Common Lunch/Dinner videos"></div>
       </li>
       <li class="video-item">
         <h2>School Lunch</h2>
@@ -546,6 +660,26 @@
       });
 
       setupYoutubeSection({
+        videoId: "sHccQQyYjaM",
+        watchUrl: "https://youtube.com/shorts/sHccQQyYjaM",
+        posterId: "subwayYoutubePoster",
+        posterUrls: [
+          "https://i.ytimg.com/vi/sHccQQyYjaM/oardefault.jpg",
+          "https://i.ytimg.com/vi/sHccQQyYjaM/hq2.jpg",
+          "https://i.ytimg.com/vi/sHccQQyYjaM/maxresdefault.jpg",
+          "https://i.ytimg.com/vi/sHccQQyYjaM/hqdefault.jpg",
+        ],
+        facadeId: "subwayYoutubeFacade",
+        playBtnId: "subwayYoutubePlayBtn",
+        embedWrapId: "subwayYoutubeEmbed",
+        iframeId: "subwayYoutubePlayer",
+        localNoteId: "subwayYoutubeLocalNote",
+        sectionId: "subway-video",
+        playKey: "subway",
+        hash: "#subway-video",
+      });
+
+      setupYoutubeSection({
         videoId: "6qxkD2JpsLY",
         watchUrl: "https://youtu.be/6qxkD2JpsLY",
         posterId: "pizzaVsSaladYoutubePoster",
@@ -563,6 +697,77 @@
         playKey: "pizza-vs-salad",
         hash: "#pizza-vs-salad-video",
       });
+
+      (function setupLunchDinnerCarousel() {
+        var carousel = document.getElementById("lunchDinnerCarousel");
+        if (!carousel) return;
+        var track = carousel.querySelector(".video-carousel-track");
+        var slides = Array.prototype.slice.call(
+          carousel.querySelectorAll(".video-carousel-slide")
+        );
+        var prevBtn = carousel.querySelector(".video-carousel-btn--prev");
+        var nextBtn = carousel.querySelector(".video-carousel-btn--next");
+        var dotsWrap = document.getElementById("lunchDinnerCarouselDots");
+        if (!track || !slides.length) return;
+
+        var index = 0;
+        var hash = window.location.hash.replace(/^#/, "");
+        slides.forEach(function (slide, i) {
+          if (
+            slide.id === hash ||
+            slide.getAttribute("data-slide-hash") === hash ||
+            slide.getAttribute("data-play-key") === playParam
+          ) {
+            index = i;
+          }
+        });
+        if (hash === "common-lunch-dinner") index = 0;
+
+        function renderDots() {
+          if (!dotsWrap) return;
+          dotsWrap.innerHTML = "";
+          slides.forEach(function (slide, i) {
+            var dot = document.createElement("button");
+            dot.type = "button";
+            dot.className =
+              "video-carousel-dot" + (i === index ? " is-active" : "");
+            dot.setAttribute("aria-label", "Show video " + (i + 1));
+            dot.setAttribute("aria-current", i === index ? "true" : "false");
+            dot.addEventListener("click", function () {
+              goTo(i);
+            });
+            dotsWrap.appendChild(dot);
+          });
+        }
+
+        function goTo(nextIndex) {
+          index = Math.max(0, Math.min(slides.length - 1, nextIndex));
+          track.style.transform = "translateX(-" + index * 100 + "%)";
+          if (prevBtn) prevBtn.disabled = index === 0;
+          if (nextBtn) nextBtn.disabled = index === slides.length - 1;
+          renderDots();
+        }
+
+        if (prevBtn) {
+          prevBtn.addEventListener("click", function () {
+            goTo(index - 1);
+          });
+        }
+        if (nextBtn) {
+          nextBtn.addEventListener("click", function () {
+            goTo(index + 1);
+          });
+        }
+
+        goTo(index);
+
+        if (hash === "common-lunch-dinner" || hash === "subway-video" || hash === "pizza-vs-salad-video") {
+          var section = document.getElementById("common-lunch-dinner");
+          if (section) {
+            section.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        }
+      })();
     })();
   </script>
 </body>
