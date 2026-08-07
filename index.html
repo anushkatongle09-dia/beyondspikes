@@ -353,7 +353,7 @@
     .tri-columns {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      grid-template-rows: repeat(2, minmax(0, 1fr));
+      grid-template-rows: repeat(3, minmax(0, auto));
       gap: 0;
       padding: 0;
       align-items: stretch;
@@ -392,10 +392,10 @@
     .tri-columns > .content-band:nth-child(2) {
       border-top-right-radius: 8px;
     }
-    .tri-columns > .content-band:nth-child(3) {
+    .tri-columns > .content-band:nth-child(5) {
       border-bottom-left-radius: 8px;
     }
-    .tri-columns > .content-band:nth-child(4) {
+    .tri-columns > .content-band:nth-child(6) {
       border-bottom-right-radius: 8px;
     }
     .band-inner {
@@ -565,14 +565,20 @@
       max-height: min(34vh, 250px);
       transform: translateY(14px);
     }
-    #pizza-vs-salad .band-visual-area {
+    #pizza-vs-salad .band-visual-area,
+    #goldfish-snack .band-visual-area,
+    #quesadilla-lunch .band-visual-area {
       align-items: center;
       justify-content: center;
     }
-    #pizza-vs-salad .band-pane-link--visual {
+    #pizza-vs-salad .band-pane-link--visual,
+    #goldfish-snack .band-pane-link--visual,
+    #quesadilla-lunch .band-pane-link--visual {
       margin-top: 1rem;
     }
-    #pizza-vs-salad .pbj-images-wrap {
+    #pizza-vs-salad .pbj-images-wrap,
+    #goldfish-snack .pbj-images-wrap,
+    #quesadilla-lunch .pbj-images-wrap {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -580,7 +586,9 @@
       margin-top: 0.5rem;
       width: 100%;
     }
-    #pizza-vs-salad .pbj-img-cell {
+    #pizza-vs-salad .pbj-img-cell,
+    #goldfish-snack .pbj-img-cell,
+    #quesadilla-lunch .pbj-img-cell {
       flex: 1 1 0;
       display: flex;
       align-items: center;
@@ -590,7 +598,9 @@
       min-height: min(34vh, 255px);
       max-height: min(34vh, 255px);
     }
-    #pizza-vs-salad .pbj-img-cell img {
+    #pizza-vs-salad .pbj-img-cell img,
+    #goldfish-snack .pbj-img-cell img,
+    #quesadilla-lunch .pbj-img-cell img {
       display: block;
       width: auto;
       height: auto;
@@ -619,7 +629,9 @@
         max-height: 200px;
         transform: translateY(8px);
       }
-      #pizza-vs-salad .pbj-img-cell {
+      #pizza-vs-salad .pbj-img-cell,
+      #goldfish-snack .pbj-img-cell,
+      #quesadilla-lunch .pbj-img-cell {
         height: 210px;
         min-height: 210px;
         max-height: 210px;
@@ -927,6 +939,50 @@
                 </div>
                 <div class="pbj-img-cell pbj-img-cell--curve">
                   <img class="pbj-img-curve" src="images/Pizza_Curve.png" alt="Pizza blood sugar curve comparison — click to watch video">
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <section id="goldfish-snack" class="content-band band-blue band-clickable" aria-labelledby="heading-goldfish">
+        <div class="band-inner">
+          <div class="band-copy-above-images">
+            <h2 id="heading-goldfish">Goldfish</h2>
+            <p class="band-detail">Cheddar Goldfish — tracking the second spike after a snack</p>
+            <p class="band-click-hint">Click the picture below to watch the video</p>
+          </div>
+          <a class="band-pane-link band-pane-link--visual" href="tested-my-videos.html#goldfish-video" aria-label="Watch Snack series Goldfish video on My Videos">
+            <div class="band-visual-area">
+              <div class="pbj-images-wrap">
+                <div class="pbj-img-cell pbj-img-cell--cover">
+                  <img class="pbj-img-cover" src="images/Goldfish_Cover.png" alt="Goldfish cheddar snack bag — click to watch video">
+                </div>
+                <div class="pbj-img-cell pbj-img-cell--curve">
+                  <img class="pbj-img-curve" src="images/Goldfish_Curve.png" alt="Goldfish blood sugar spike — click to watch video">
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <section id="quesadilla-lunch" class="content-band band-green band-clickable" aria-labelledby="heading-quesadilla">
+        <div class="band-inner">
+          <div class="band-copy-above-images">
+            <h2 id="heading-quesadilla">Bean and Cheese Quesadilla</h2>
+            <p class="band-detail">Common lunch and dinner — bean and cheese quesadilla spike</p>
+            <p class="band-click-hint">Click the picture below to watch the video</p>
+          </div>
+          <a class="band-pane-link band-pane-link--visual" href="tested-my-videos.html#quesadilla-video" aria-label="Watch Bean and Cheese Quesadilla video on My Videos">
+            <div class="band-visual-area">
+              <div class="pbj-images-wrap">
+                <div class="pbj-img-cell pbj-img-cell--cover">
+                  <img class="pbj-img-cover" src="images/Quesadilla_Cover.png" alt="Bean and cheese quesadilla — click to watch video">
+                </div>
+                <div class="pbj-img-cell pbj-img-cell--curve">
+                  <img class="pbj-img-curve" src="images/Quesadilla_Curve.png" alt="Bean and cheese quesadilla blood sugar spike — click to watch video">
                 </div>
               </div>
             </div>

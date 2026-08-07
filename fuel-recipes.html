@@ -77,6 +77,11 @@
       color: var(--brand-text);
       line-height: 1.35;
     }
+    .recipe-item h2 .serving-size {
+      font-weight: 500;
+      color: var(--brand-muted);
+      font-size: 0.9em;
+    }
     .recipe-body {
       display: flex;
       flex-wrap: wrap;
@@ -138,6 +143,19 @@
     .nutrition-facts li:last-child {
       margin-bottom: 0;
     }
+    .recipe-note {
+      margin: 1rem 0 0;
+      font-size: 0.9rem;
+      color: var(--brand-muted);
+      font-style: italic;
+    }
+    .recipe-content ol {
+      margin: 0 0 1rem;
+      padding-left: 1.35rem;
+    }
+    .recipe-content ol li {
+      margin-bottom: 0.45rem;
+    }
     footer {
       text-align: center;
       padding: 1.25rem;
@@ -184,6 +202,47 @@
               <li>Fiber: ~8 g</li>
               <li>Fat: ~6 g</li>
             </ul>
+          </div>
+        </div>
+      </li>
+      <li class="recipe-item" id="bean-veggie-quesadillas">
+        <h2>Bean Veggie Quesadillas <span class="serving-size">(Single Serving)</span></h2>
+        <div class="recipe-body">
+          <figure>
+            <img src="images/BeanVeggieQuesadilla.png" alt="Bean and cheese veggie quesadilla cut into wedges on a plate">
+            <figcaption>Bean veggie quesadilla with cheese</figcaption>
+          </figure>
+          <div class="recipe-content">
+            <h3>Ingredients</h3>
+            <ul>
+              <li>1/2 small onion</li>
+              <li>1/2 small tomato</li>
+              <li>Small piece of red and green bell pepper</li>
+              <li>1 tsp oil</li>
+              <li>1 tablespoon taco seasoning</li>
+              <li>1/4 can of black beans (or replace/add any veggies and beans of choice)</li>
+              <li>Salt to taste</li>
+              <li>1 tortilla</li>
+              <li>Cheese of choice</li>
+            </ul>
+            <h3>Directions</h3>
+            <ol>
+              <li>Mix together all of the veggies and sauté them in a pan for a couple of minutes.</li>
+              <li>Add the black beans, salt, and taco seasoning, and mix everything together.</li>
+              <li>Add the mixture onto one side of the tortilla, and add cheese on top.</li>
+              <li>Heat both sides of the tortilla until crispy.</li>
+            </ol>
+            <h3>Nutrition Facts</h3>
+            <ul class="nutrition-facts">
+              <li>Calories: ~505 kcal</li>
+              <li>Protein: ~22 g</li>
+              <li>Carbohydrates: ~46 g</li>
+              <li>Fiber: ~9 g</li>
+              <li>Fat: ~26 g</li>
+            </ul>
+            <p class="recipe-note">
+              Note: I only consumed 2/3 of the quesadilla, so the blood sugar spike depicted in the video is based on the amount I ate.
+            </p>
           </div>
         </div>
       </li>

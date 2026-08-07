@@ -423,6 +423,36 @@
           <button type="button" class="video-carousel-btn video-carousel-btn--prev" aria-label="Previous lunch/dinner video">‹</button>
           <div class="video-carousel-viewport">
             <div class="video-carousel-track">
+              <div class="video-carousel-slide" id="quesadilla-video" data-slide-hash="quesadilla-video" data-play-key="quesadilla">
+                <h3>Bean and Cheese Quesadilla</h3>
+                <div class="youtube-facade-wrap">
+                  <div id="quesadillaYoutubeFacade" class="youtube-facade youtube-frame youtube-frame--portrait">
+                    <button type="button" class="youtube-facade-btn" id="quesadillaYoutubePlayBtn" aria-label="Play Bean and Cheese Quesadilla video">
+                      <img
+                        id="quesadillaYoutubePoster"
+                        src=""
+                        alt="Bean and Cheese Quesadilla — first frame preview"
+                      >
+                      <span class="youtube-play-label">▶ Play video</span>
+                    </button>
+                  </div>
+                  <div id="quesadillaYoutubeEmbed" class="youtube-embed-wrap youtube-frame youtube-frame--portrait" hidden>
+                    <iframe
+                      id="quesadillaYoutubePlayer"
+                      title="Bean and Cheese Quesadilla on YouTube"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      referrerpolicy="strict-origin-when-cross-origin"
+                      allowfullscreen
+                    ></iframe>
+                  </div>
+                </div>
+                <p id="quesadillaYoutubeLocalNote" class="youtube-facade-note" hidden>
+                  For the embedded player, open this site with Live Server or GitHub Pages. You can still play via the button (opens YouTube).
+                </p>
+                <p>
+                  <a class="video-file-link" href="https://youtube.com/shorts/W9ARIIeNzS4" target="_blank" rel="noopener noreferrer">Watch on YouTube</a>
+                </p>
+              </div>
               <div class="video-carousel-slide" id="subway-video" data-slide-hash="subway-video" data-play-key="subway">
                 <h3>Subway</h3>
                 <div class="youtube-facade-wrap">
@@ -660,6 +690,27 @@
       });
 
       setupYoutubeSection({
+        videoId: "W9ARIIeNzS4",
+        watchUrl: "https://youtube.com/shorts/W9ARIIeNzS4",
+        posterId: "quesadillaYoutubePoster",
+        posterUrls: [
+          "https://i.ytimg.com/vi/W9ARIIeNzS4/oardefault.jpg",
+          "https://i.ytimg.com/vi/W9ARIIeNzS4/hq2.jpg",
+          "https://i.ytimg.com/vi/W9ARIIeNzS4/maxresdefault.jpg",
+          "https://i.ytimg.com/vi/W9ARIIeNzS4/hqdefault.jpg",
+          "images/Quesadilla_Cover.png",
+        ],
+        facadeId: "quesadillaYoutubeFacade",
+        playBtnId: "quesadillaYoutubePlayBtn",
+        embedWrapId: "quesadillaYoutubeEmbed",
+        iframeId: "quesadillaYoutubePlayer",
+        localNoteId: "quesadillaYoutubeLocalNote",
+        sectionId: "quesadilla-video",
+        playKey: "quesadilla",
+        hash: "#quesadilla-video",
+      });
+
+      setupYoutubeSection({
         videoId: "sHccQQyYjaM",
         watchUrl: "https://youtube.com/shorts/sHccQQyYjaM",
         posterId: "subwayYoutubePoster",
@@ -761,7 +812,7 @@
 
         goTo(index);
 
-        if (hash === "common-lunch-dinner" || hash === "subway-video" || hash === "pizza-vs-salad-video") {
+        if (hash === "common-lunch-dinner" || hash === "quesadilla-video" || hash === "subway-video" || hash === "pizza-vs-salad-video") {
           var section = document.getElementById("common-lunch-dinner");
           if (section) {
             section.scrollIntoView({ behavior: "smooth", block: "start" });
