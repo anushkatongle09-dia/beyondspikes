@@ -15,7 +15,6 @@
   const statusEl = document.getElementById("srStatus");
   const greetingEl = document.getElementById("srGreeting");
   const textInput = document.getElementById("srTextInput");
-  const listenBtn = document.getElementById("srListenBtn");
   const sendBtn = document.getElementById("srSendBtn");
   const stopBtn = document.getElementById("srStopBtn");
   const transcriptEl = document.getElementById("srTranscript");
@@ -23,9 +22,6 @@
 
   if (!openBtn || !modal) return;
 
-  const SpeechRecognition =
-    window.SpeechRecognition || window.webkitSpeechRecognition;
-  let recognition = null;
   let history = [];
   let busy = false;
 
@@ -54,11 +50,6 @@
 
   function stopAll() {
     window.speechSynthesis.cancel();
-    if (recognition) {
-      try {
-        recognition.abort();
-      } catch (_) {}
-    }
     busy = false;
   }
 
@@ -110,45 +101,6 @@
     const short =
       text.length > 500 ? text.slice(0, 480).replace(/\s+\S*$/, "") + "…" : text;
     speak(short);
-  }
-
-  function initRecognition() {
-    if (!SpeechRecognition) return null;
-    const r = new SpeechRecognition();
-    r.lang = "en-US";
-    r.interimResults = false;
-    r.maxAlternatives = 1;
-    r.continuous = false;
-    return r;
-  }
-
-  function startListening() {
-    if (!SpeechRecognition) {
-      setStatus("Voice not supported here — type your meal and press Send.");
-      if (textInput) textInput.focus();
-      return;
-    }
-    stopAll();
-    recognition = initRecognition();
-    setStatus("Listening… describe your next meal.");
-    recognition.onresult = function (ev) {
-      const text = ev.results[0][0].transcript.trim();
-      if (textInput) textInput.value = text;
-      if (transcriptEl) transcriptEl.textContent = "You said: " + text;
-      setStatus("Got it — asking Spike Reducer…");
-      submitMessage(text);
-    };
-    recognition.onerror = function (ev) {
-      setStatus(
-        "Could not hear you (" + (ev.error || "error") + "). Try typing instead."
-      );
-      busy = false;
-    };
-    recognition.onend = function () {
-      if (!busy) setStatus("Tap the mic or Send when ready.");
-    };
-    busy = true;
-    recognition.start();
   }
 
   async function submitMessage(message) {
@@ -222,9 +174,8 @@
     setGreeting(GREETING);
     setStatus("Speaking…");
     speak(GREETING, function () {
-      setStatus("Tap the mic or type your meal, then Send.");
-      if (SpeechRecognition) startListening();
-      else if (textInput) textInput.focus();
+      setStatus("Type your meal, then press Send.");
+      if (textInput) textInput.focus();
     });
   }
 
@@ -235,12 +186,6 @@
 
   if (closeBtn) closeBtn.addEventListener("click", hideModal);
   if (backdrop) backdrop.addEventListener("click", hideModal);
-
-  if (listenBtn) {
-    listenBtn.addEventListener("click", function () {
-      if (!busy) startListening();
-    });
-  }
 
   if (sendBtn) {
     sendBtn.addEventListener("click", function () {
@@ -253,7 +198,7 @@
   if (stopBtn) {
     stopBtn.addEventListener("click", function () {
       stopAll();
-      setStatus("Stopped. Tap mic or Send to continue.");
+      setStatus("Stopped. Type your meal and press Send to continue.");
     });
   }
 
