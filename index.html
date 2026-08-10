@@ -181,17 +181,16 @@
       border-radius: 999px;
       border: 2px solid var(--brand-primary);
       background: var(--brand-white);
+      color: var(--brand-text);
       font-weight: 600;
       cursor: pointer;
       font: inherit;
+      transition: background-color 0.12s ease, border-color 0.12s ease, color 0.12s ease;
     }
-    .sr-btn-primary {
-      background: var(--brand-primary);
+    .sr-btn:active {
+      background: #9ca3af;
+      border-color: #9ca3af;
       color: #fff;
-    }
-    .sr-btn-muted {
-      border-color: var(--brand-muted);
-      color: var(--brand-muted);
     }
     .sr-transcript,
     .sr-response {
@@ -949,8 +948,8 @@
       <textarea id="srTextInput" class="sr-text-input" rows="3" placeholder="e.g. pasta, garlic bread, and orange juice"></textarea>
       <div class="sr-actions">
         <button type="button" class="sr-btn" id="srListenBtn" aria-label="Speak your meal">🎤 Speak</button>
-        <button type="button" class="sr-btn sr-btn-primary" id="srSendBtn">Send</button>
-        <button type="button" class="sr-btn sr-btn-muted" id="srStopBtn">Stop</button>
+        <button type="button" class="sr-btn" id="srSendBtn">Send</button>
+        <button type="button" class="sr-btn" id="srStopBtn">Stop</button>
       </div>
       <div id="srTranscript" class="sr-transcript" aria-live="polite"></div>
       <div id="srResponse" class="sr-response" aria-live="polite"></div>
