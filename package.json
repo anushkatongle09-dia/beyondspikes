@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "worker:deploy": "wrangler deploy",
-    "worker:secret": "wrangler secret put GEMINI_API_KEY"
+    "worker:secret": "wrangler secret put XAI_API_KEY"
   },
   "devDependencies": {
     "wrangler": "^4.14.0"
