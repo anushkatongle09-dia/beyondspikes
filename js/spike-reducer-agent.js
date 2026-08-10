@@ -3,7 +3,10 @@
 
   const cfg = window.SPIKE_REDUCER_CONFIG || {};
   const GREETING =
-    cfg.greeting || "Hey, I am your spike reducer. Tell me about your next meal.";
+    cfg.greeting || "Tell me about your next meal.";
+  const POLICY_REJECTION =
+    cfg.policyRejection ||
+    "I am not allowed to discuss anything apart from food.";
 
   const openBtn = document.getElementById("spikeReducerOpenBtn");
   const modal = document.getElementById("spikeReducerModal");
@@ -59,16 +62,43 @@
     busy = false;
   }
 
+  function pickFemaleEnglishVoice() {
+    const voices = window.speechSynthesis.getVoices();
+    if (!voices.length) return null;
+
+    const english = voices.filter(function (v) {
+      return v.lang && v.lang.toLowerCase().indexOf("en") === 0;
+    });
+    const usEnglish = english.filter(function (v) {
+      return v.lang.toLowerCase().indexOf("en-us") === 0;
+    });
+    const pool = usEnglish.length ? usEnglish : english;
+
+    const femaleHint =
+      /female|zira|samantha|victoria|karen|susan|aria|jenny|linda|heather|michelle|natasha|emma|sonia|hazel|laura|sara|nancy|allison|joanna|kendra|kimberly|ivy|lisa|monica|paulina|fiona|moira|tessa|veena|ava|jenna|stephanie|olivia|salli|amy|nicole|kate|catherine|anna|alice/i;
+    const maleHint =
+      /male|\bdavid\b|\bmark\b|\bjames\b|\bgeorge\b|\bguy\b|\bdaniel\b|\bryan\b|\brichard\b|\bthomas\b|\bbrian\b|\bchristopher\b|\bmatthew\b|\bsteven\b/i;
+
+    const female = pool.find(function (v) {
+      const name = v.name.toLowerCase();
+      if (maleHint.test(name)) return false;
+      return femaleHint.test(name);
+    });
+    if (female) return female;
+
+    const notMale = pool.find(function (v) {
+      return !maleHint.test(v.name.toLowerCase());
+    });
+    return notMale || pool[0] || null;
+  }
+
   function speak(text, onEnd) {
     window.speechSynthesis.cancel();
     const u = new SpeechSynthesisUtterance(text);
     u.lang = "en-US";
     u.rate = 1;
-    const voices = window.speechSynthesis.getVoices();
-    const en = voices.find(function (v) {
-      return v.lang.startsWith("en");
-    });
-    if (en) u.voice = en;
+    const voice = pickFemaleEnglishVoice();
+    if (voice) u.voice = voice;
     if (onEnd) {
       u.onend = onEnd;
       u.onerror = onEnd;
@@ -105,7 +135,7 @@
       const text = ev.results[0][0].transcript.trim();
       if (textInput) textInput.value = text;
       if (transcriptEl) transcriptEl.textContent = "You said: " + text;
-      setStatus("Got it — sending to Spike Reducer…");
+      setStatus("Got it — asking Spike Reducer…");
       submitMessage(text);
     };
     recognition.onerror = function (ev) {
@@ -124,9 +154,10 @@
   async function submitMessage(message) {
     const apiUrl = (cfg.apiUrl || "").trim();
     if (!apiUrl) {
-      setStatus("Work in progress");
+      setStatus("Setup needed");
       if (responseEl) {
-        responseEl.textContent = "Work in Progress. Visit us in few days!";
+        responseEl.textContent =
+          "Spike Reducer is not connected yet. See README-spike-reducer.md, then set apiUrl in js/spike-reducer-config.js.";
       }
       busy = false;
       return;
@@ -160,17 +191,21 @@
       const reply = data.reply || "";
       history.push({ role: "user", text: message });
       history.push({ role: "assistant", text: reply });
-      if (history.length > 12) history = history.slice(-12);
+      if (history.length > 8) history = history.slice(-8);
 
       if (responseEl) responseEl.textContent = reply;
-      setStatus("Here is your guidance.");
+      if (reply === POLICY_REJECTION || data.policy === "rejected") {
+        setStatus("Food topics only (USA meals).");
+      } else {
+        setStatus("Here are protein & fat ideas for a steadier meal.");
+      }
       speakReply(reply);
     } catch (err) {
       const msg = err instanceof Error ? err.message : "Something went wrong.";
       setStatus("Error");
       if (responseEl) {
         responseEl.textContent =
-          "Could not reach Spike Reducer. Check your Worker URL and API key.\n\n" +
+          "Could not reach Spike Reducer. Please try again in a moment.\n\n" +
           msg;
       }
     } finally {
@@ -228,5 +263,8 @@
 
   if (window.speechSynthesis) {
     window.speechSynthesis.getVoices();
+    window.speechSynthesis.addEventListener("voiceschanged", function () {
+      window.speechSynthesis.getVoices();
+    });
   }
 })();
