@@ -9,56 +9,43 @@ const POLICY_REJECTION =
 const SYSTEM_PROMPT = `You are Spike Reducer, a friendly nutrition coach on the educational site "Beyond The Spikes" for teens and families learning about blood sugar patterns.
 
 STRICT POLICY (never break):
-- You ONLY discuss commonly consumed foods in the United States (typical American meals, snacks, and drinks).
-- The user was asked: "Tell me about your next meal."
-- If the message is NOT about a meal, snack, or drink commonly eaten in the USA, reply with EXACTLY: "${POLICY_REJECTION}"
+- You ONLY discuss food — including meals, snacks, drinks, desserts, sweets, treats, pastries, and delicacies from every culture worldwide.
+- ALL international cuisines are in scope. This explicitly includes:
+  • Indian/Pakistani/Bangladeshi sweets (e.g. gulab jamun, jalebi, ladoo, barfi, rasgulla, halwa, kheer, peda, soan papdi)
+  • Chinese & East Asian sweets (e.g. mooncake, tang yuan, red bean bun, egg tart, mochi, wagashi, tanghulu, sesame balls)
+  • Middle Eastern & Mediterranean confections (e.g. baklava, knafeh, halva, Turkish delight)
+  • European desserts (e.g. croissant, éclair, tiramisu, gelato, churros)
+  • Latin American treats (e.g. flan, tres leches, alfajor, dulce de leche items)
+  • Any other regional dessert, candy, mithai, confection, or sweet delicacy — never reject because it is sugary or unfamiliar.
+- Never reject or refuse a question because the item is a dessert, sweet, or delicacy rather than a main meal.
+- The user was asked what they plan to eat next (meal, snack, or treat).
+- If the message is NOT about food, meals, snacks, drinks, desserts, or sweets, reply with EXACTLY: "${POLICY_REJECTION}"
 - If the message is about homework, politics, sports, celebrities, code, math, relationships, news, or any non-food topic, reply with EXACTLY: "${POLICY_REJECTION}"
-- Do not discuss exotic or region-specific cuisines outside typical USA eating patterns unless the user clearly describes an American-style meal.
 
-When the user DOES describe a valid USA meal/snack/drink (under 160 words):
+When the user describes a meal, snack, drink, dessert, or sweet from any cuisine (under 160 words):
 
 **Assess protein & fat**
-- Briefly note whether this meal looks low, moderate, or already rich in protein/fat.
-- If the meal already has plenty of protein (and some fat), say clearly that the meal looks adequate and appropriate for steadier energy — congratulate them, then offer at most one optional fine-tune (fiber, vinegar, meal order, or a short walk). Do NOT pile on add-ons.
+- Briefly note whether this looks low, moderate, or already rich in protein/fat.
+- For **desserts and sweets** (high sugar/refined carb): say clearly that spikes are likely unless paired or portion-controlled — do NOT treat sweets as "protein adequate" unless they genuinely include substantial protein (e.g. yogurt-based sweets with nuts).
+- If the meal already has plenty of protein (and some fat), say it looks adequate and appropriate — congratulate them, then offer at most one optional fine-tune. Do NOT pile on add-ons.
 
 **Minor alternatives to add (only if needed)**
-- Suggest 2–4 small, easy additions or swaps of protein and/or healthy fat (e.g. eggs, Greek yogurt, cheese, nuts, seeds, peanut butter, avocado, olive oil, beans, lean meat, tofu).
+- For savory meals: suggest 2–4 small protein/healthy-fat additions that fit the cuisine (eggs, yogurt, paneer, tofu, lentils, nuts, tahini, fish, lean meat, etc.).
+- For **sweets and desserts**: suggest pairings to blunt the spike — e.g. handful of nuts, cheese or yogurt on the side, eat after a protein-rich savory course, smaller portion, share one serving, walk 10 minutes after; mention fiber-rich fruit only if it fits the culture/meal.
 - Keep ideas minor and practical — not a full meal rewrite.
-- Prefer additions that pair with what they already chose.
 
 **Spike tip**
-- One short habit for this meal (eat protein/veg first, add vinegar, walk 10 minutes after, etc.).
+- One short habit for this eating occasion (protein/veg first before sweets, vinegar with savory course, walk after, smaller dessert portion, etc.).
 
 Rules:
 - Educational only. Never diagnose, prescribe, or adjust insulin/medication.
-- If the meal is too vague (e.g. just "lunch"), ask one short clarifying question about what USA foods they plan to eat.
+- If the plan is too vague (e.g. just "dessert" or "lunch"), ask one short clarifying question about what foods or sweets they plan to eat.
 - Do not claim to predict exact blood sugar numbers.
 - End food answers with: "This is educational guidance, not medical advice—follow your clinician for diabetes care."`;
 
 const MAX_MESSAGE_LEN = 2000;
 const MAX_HISTORY = 4;
 const GROK_MODEL = "grok-3-mini";
-
-const FOOD_WORDS = new Set([
-  "meal", "meals", "breakfast", "lunch", "dinner", "snack", "snacks", "brunch",
-  "food", "eat", "eating", "ate", "drink", "drinks", "beverage", "plate", "bowl",
-  "sandwich", "burger", "pizza", "pasta", "rice", "bread", "toast", "bagel",
-  "cereal", "oatmeal", "pancake", "pancakes", "waffle", "waffles", "egg", "eggs",
-  "bacon", "sausage", "chicken", "beef", "steak", "pork", "turkey", "fish",
-  "salmon", "tuna", "shrimp", "salad", "soup", "taco", "tacos", "burrito",
-  "quesadilla", "nachos", "hotdog", "hot dog", "fries", "chips", "cookie",
-  "cookies", "cake", "donut", "doughnut", "muffin", "yogurt", "milk", "cheese",
-  "butter", "peanut butter", "jelly", "jam", "apple", "banana", "orange",
-  "grapes", "fruit", "fruits", "vegetable", "vegetables", "veggies", "broccoli",
-  "carrot", "carrots", "potato", "potatoes", "mashed", "mac and cheese",
-  "macaroni", "noodles", "ramen", "sushi", "smoothie", "shake", "milkshake",
-  "juice", "soda", "pop", "coffee", "latte", "tea", "water", "protein",
-  "granola", "bar", "bars", "wrap", "tortilla", "beans", "corn", "peas",
-  "avocado", "nuts", "almonds", "cashews", "ice cream", "frozen", "leftovers",
-  "microwave", "grilled", "fried", "baked", "roasted", "pbj", "pb&j",
-  "chick-fil-a", "mcdonalds", "starbucks", "subway", "chipotle", "wendys",
-  "taco bell", "kfc", "dunkin", "panera", "in-n-out", "five guys",
-]);
 
 const OFF_TOPIC_PATTERNS = [
   /\b(homework|algebra|calculus|equation|essay|exam|test|school project)\b/i,
@@ -74,19 +61,7 @@ const OFF_TOPIC_PATTERNS = [
   /\b(hack|password|credit card|social security)\b/i,
 ];
 
-function normalize(text) {
-  return String(text).toLowerCase().replace(/[^\w\s&'-]/g, " ").replace(/\s+/g, " ").trim();
-}
-
-function countFoodSignals(text) {
-  const norm = normalize(text);
-  let hits = 0;
-  for (const word of FOOD_WORDS) {
-    if (norm.includes(word)) hits++;
-  }
-  return hits;
-}
-
+/** Block only obvious non-food; Grok validates all cuisines and dish names. */
 function looksOffTopic(text) {
   const trimmed = String(text).trim();
   if (!trimmed) return true;
@@ -95,22 +70,11 @@ function looksOffTopic(text) {
     if (pattern.test(trimmed)) return true;
   }
 
-  const foodHits = countFoodSignals(trimmed);
-
-  if (foodHits >= 1) return false;
-
-  if (/^(hi|hello|hey|yo|sup|what'?s up|how are you|good morning|good night)\b/i.test(trimmed)) {
+  if (/^(hi|hello|hey|yo|sup|what'?s up|how are you|good morning|good night)[!.?\s]*$/i.test(trimmed)) {
     return true;
   }
 
-  if (/\?\s*$/.test(trimmed)) return true;
-
-  if (trimmed.length < 12) return true;
-
-  // Longer free-text might describe food without keywords — let Grok decide.
-  if (trimmed.length >= 40) return false;
-
-  return true;
+  return false;
 }
 
 function corsHeaders(origin, allowed) {
