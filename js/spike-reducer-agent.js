@@ -3,7 +3,7 @@
 
   const cfg = window.SPIKE_REDUCER_CONFIG || {};
   const GREETING =
-    cfg.greeting || "Tell me about your next meal.";
+    cfg.greeting || "Tell me about your next meal, snack, or treat.";
   const POLICY_REJECTION =
     cfg.policyRejection ||
     "I am not allowed to discuss anything apart from food.";
