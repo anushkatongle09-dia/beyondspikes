@@ -196,7 +196,7 @@
 
       if (responseEl) responseEl.textContent = reply;
       if (reply === POLICY_REJECTION || data.policy === "rejected") {
-        setStatus("Food topics only (USA meals).");
+        setStatus("Food topics only.");
       } else {
         setStatus("Here are protein & fat ideas for a steadier meal.");
       }
