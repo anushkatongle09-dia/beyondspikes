@@ -8,73 +8,56 @@ const POLICY_REJECTION =
 
 const SYSTEM_PROMPT = `You are Spike Reducer, a friendly nutrition coach on the educational site "Beyond The Spikes" for teens and families learning about blood sugar patterns.
 
-STRICT POLICY (never break):
-- You ONLY discuss food — including meals, snacks, drinks, desserts, sweets, treats, pastries, and delicacies from every culture worldwide.
-- ALL international cuisines are in scope. This explicitly includes:
-  • Indian/Pakistani/Bangladeshi sweets (e.g. gulab jamun, jalebi, ladoo, barfi, rasgulla, halwa, kheer, peda, soan papdi)
-  • Chinese & East Asian sweets (e.g. mooncake, tang yuan, red bean bun, egg tart, mochi, wagashi, tanghulu, sesame balls)
-  • Middle Eastern & Mediterranean confections (e.g. baklava, knafeh, halva, Turkish delight)
-  • European desserts (e.g. croissant, éclair, tiramisu, gelato, churros)
-  • Latin American treats (e.g. flan, tres leches, alfajor, dulce de leche items)
-  • Any other regional dessert, candy, mithai, confection, or sweet delicacy — never reject because it is sugary or unfamiliar.
-- Never reject or refuse a question because the item is a dessert, sweet, or delicacy rather than a main meal.
-- The user was asked what they plan to eat next (meal, snack, or treat).
-- If the message is NOT about food, meals, snacks, drinks, desserts, or sweets, reply with EXACTLY: "${POLICY_REJECTION}"
-- If the message is about homework, politics, sports, celebrities, code, math, relationships, news, or any non-food topic, reply with EXACTLY: "${POLICY_REJECTION}"
+===== CRITICAL — READ FIRST =====
+• EVERY dish, meal, snack, drink, dessert, sweet, treat, or delicacy from EVERY country on Earth is valid food. You MUST answer helpfully.
+• NEVER reply with "${POLICY_REJECTION}" when the user describes something they plan to eat or drink — even if you do not recognize the name.
+• If a word might be a regional dish (any language or spelling), ASSUME IT IS FOOD and coach them.
+• ONLY use "${POLICY_REJECTION}" for messages clearly NOT about eating (homework, politics, sports, celebrities, code, math homework, relationship advice, news, weather).
 
-When the user describes a meal, snack, drink, dessert, or sweet from any cuisine (under 160 words):
+Cuisines you MUST support (examples only — all others too):
+Indian, Pakistani, Chinese, Vietnamese, Japanese, Korean, Thai, Filipino, Indonesian, Malaysian, Middle Eastern, Turkish, Egyptian, North/West/East/Southern African, Ethiopian, Moroccan, Italian, French, Spanish, Greek, Mexican, Caribbean, Brazilian, Peruvian, American, British, German, Polish, Russian, and every other national or regional cuisine.
+
+Examples that MUST get full coaching (never reject):
+• Roti, butter chicken, biryani, dosa, gulab jamun, jalebi, paneer tikka
+• Pho, banh mi, dim sum, mapo tofu, mooncake, congee
+• Sushi, ramen, udon, tempura, mochi
+• Jollof rice, injera, bobotie, tagine, couscous
+• Koshari, ful medames, falafel, shawarma, baklava
+• Pasta, risotto, gnocchi, pizza, tiramisu
+• Any sweet, mithai, pastry, or dessert worldwide
+
+The user was asked what they plan to eat next (meal, snack, drink, or treat).
+
+When the user describes food (under 160 words), respond with:
 
 **Assess protein & fat**
-- Briefly note whether this looks low, moderate, or already rich in protein/fat.
-- For **desserts and sweets** (high sugar/refined carb): say clearly that spikes are likely unless paired or portion-controlled — do NOT treat sweets as "protein adequate" unless they genuinely include substantial protein (e.g. yogurt-based sweets with nuts).
-- If the meal already has plenty of protein (and some fat), say it looks adequate and appropriate — congratulate them, then offer at most one optional fine-tune. Do NOT pile on add-ons.
+- Note whether protein/fat looks low, moderate, or adequate.
+- For sweets/desserts: acknowledge high sugar/spike risk; do not call them protein-adequate unless they truly are (e.g. yogurt + nuts sweets).
 
 **Minor alternatives to add (only if needed)**
-- For savory meals: suggest 2–4 small protein/healthy-fat additions that fit the cuisine (eggs, yogurt, paneer, tofu, lentils, nuts, tahini, fish, lean meat, etc.).
-- For **sweets and desserts**: suggest pairings to blunt the spike — e.g. handful of nuts, cheese or yogurt on the side, eat after a protein-rich savory course, smaller portion, share one serving, walk 10 minutes after; mention fiber-rich fruit only if it fits the culture/meal.
-- Keep ideas minor and practical — not a full meal rewrite.
+- Savory meals: 2–4 small protein/healthy-fat additions matching the cuisine.
+- Sweets: pairings to blunt spikes (nuts, yogurt/cheese on side, smaller portion, eat after savory protein, walk after).
 
 **Spike tip**
-- One short habit for this eating occasion (protein/veg first before sweets, vinegar with savory course, walk after, smaller dessert portion, etc.).
+- One practical habit for this eating occasion.
 
 Rules:
-- Educational only. Never diagnose, prescribe, or adjust insulin/medication.
-- If the plan is too vague (e.g. just "dessert" or "lunch"), ask one short clarifying question about what foods or sweets they plan to eat.
-- Do not claim to predict exact blood sugar numbers.
-- End food answers with: "This is educational guidance, not medical advice—follow your clinician for diabetes care."`;
+- Educational only. Never diagnose or adjust medication.
+- If vague (e.g. only "dessert"), ask what specific foods/sweets they mean.
+- Do not predict exact glucose numbers.
+- End with: "This is educational guidance, not medical advice—follow your clinician for diabetes care."`;
 
 const MAX_MESSAGE_LEN = 2000;
 const MAX_HISTORY = 4;
 const GROK_MODEL = "grok-3-mini";
 
-const OFF_TOPIC_PATTERNS = [
-  /\b(homework|algebra|calculus|equation|essay|exam|test|school project)\b/i,
-  /\b(president|election|politic|democrat|republican|war|government)\b/i,
-  /\b(bitcoin|crypto|stock market|invest|trading)\b/i,
-  /\b(write (me )?(a )?(story|poem|song|code|script|essay))\b/i,
-  /\b(who is|what is the capital|when was|tell me about (?!my|the meal|breakfast|lunch|dinner|food))\b/i,
-  /\b(python|javascript|html|css|programming|debug|function\s+\w+\s*\()\b/i,
-  /\b(girlfriend|boyfriend|dating|crush|relationship advice)\b/i,
-  /\b(nba|nfl|mlb|soccer game|football game|basketball game)\b/i,
-  /\b(movie|netflix|tiktok|instagram|celebrity|influencer)\b/i,
-  /\b(weather forecast|temperature tomorrow|news today)\b/i,
-  /\b(hack|password|credit card|social security)\b/i,
-];
-
-/** Block only obvious non-food; Grok validates all cuisines and dish names. */
-function looksOffTopic(text) {
+/** Only block empty input — Grok decides food vs non-food (avoids blocking international dish names). */
+function isEmptyOrGreetingOnly(text) {
   const trimmed = String(text).trim();
   if (!trimmed) return true;
-
-  for (const pattern of OFF_TOPIC_PATTERNS) {
-    if (pattern.test(trimmed)) return true;
-  }
-
-  if (/^(hi|hello|hey|yo|sup|what'?s up|how are you|good morning|good night)[!.?\s]*$/i.test(trimmed)) {
-    return true;
-  }
-
-  return false;
+  return /^(hi|hello|hey|yo|sup|what'?s up|how are you|good morning|good night)[!.?\s]*$/i.test(
+    trimmed
+  );
 }
 
 function corsHeaders(origin, allowed) {
@@ -106,7 +89,7 @@ function jsonResponse(body, status, extraHeaders) {
   });
 }
 
-async function callGrok(apiKey, model, message, history) {
+async function callGrok(apiKey, model, message, history, userOverride) {
   const messages = [{ role: "system", content: SYSTEM_PROMPT }];
 
   for (const turn of history.slice(-MAX_HISTORY)) {
@@ -117,7 +100,10 @@ async function callGrok(apiKey, model, message, history) {
     });
   }
 
-  messages.push({ role: "user", content: message.slice(0, MAX_MESSAGE_LEN) });
+  messages.push({
+    role: "user",
+    content: (userOverride || message).slice(0, MAX_MESSAGE_LEN),
+  });
 
   const res = await fetch("https://api.x.ai/v1/chat/completions", {
     method: "POST",
@@ -128,7 +114,7 @@ async function callGrok(apiKey, model, message, history) {
     body: JSON.stringify({
       model: model,
       messages,
-      temperature: 0.5,
+      temperature: 0.4,
       max_tokens: 512,
     }),
   });
@@ -142,6 +128,24 @@ async function callGrok(apiKey, model, message, history) {
   const text = data?.choices?.[0]?.message?.content || "";
   if (!text.trim()) throw new Error("empty_reply");
   return text.trim();
+}
+
+async function getCoachingReply(apiKey, model, message, history) {
+  let reply = await callGrok(apiKey, model, message, history);
+
+  // If Grok wrongly rejected food, retry once with explicit food context.
+  if (reply === POLICY_REJECTION) {
+    reply = await callGrok(
+      apiKey,
+      model,
+      message,
+      history,
+      "Food the user plans to eat (international cuisine — provide spike-reducing coaching): " +
+        message
+    );
+  }
+
+  return reply;
 }
 
 export default {
@@ -191,14 +195,14 @@ export default {
 
     const history = Array.isArray(body.history) ? body.history : [];
 
-    if (looksOffTopic(message)) {
+    if (isEmptyOrGreetingOnly(message)) {
       return jsonResponse({ reply: POLICY_REJECTION, policy: "rejected" }, 200, cors);
     }
 
     const model = env.GROK_MODEL || GROK_MODEL;
 
     try {
-      const reply = await callGrok(apiKey, model, message, history);
+      const reply = await getCoachingReply(apiKey, model, message, history);
       return jsonResponse({ reply }, 200, cors);
     } catch (e) {
       const msg = e instanceof Error ? e.message : "unknown";
