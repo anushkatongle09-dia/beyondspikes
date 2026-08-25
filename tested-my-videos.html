@@ -332,6 +332,46 @@
         </div>
       </li>
 
+      <li class="video-item video-category" id="common-breakfast-items">
+        <h2>Common Breakfast Items</h2>
+        <ul class="video-thumb-grid">
+          <li>
+            <button type="button" class="video-thumb" data-target="hot-chocolate-croissant-video" aria-label="Hot Chocolate and Butter Croissant">
+              <span class="video-thumb-label">Hot Chocolate and Butter Croissant</span>
+              <img id="hotChocolateCroissantYoutubeThumb" src="" alt="">
+              <span class="video-thumb-play" aria-hidden="true">▶</span>
+            </button>
+          </li>
+        </ul>
+        <div class="video-category-players">
+          <div class="video-player-panel" id="hot-chocolate-croissant-video" data-play-key="hot-chocolate-croissant" hidden>
+            <div class="youtube-facade-wrap">
+              <div id="hotChocolateCroissantYoutubeFacade" class="youtube-facade youtube-frame youtube-frame--portrait">
+                <button type="button" class="youtube-facade-btn" id="hotChocolateCroissantYoutubePlayBtn" aria-label="Play Hot Chocolate and Butter Croissant video">
+                  <img id="hotChocolateCroissantYoutubePoster" src="" alt="Hot Chocolate and Butter Croissant — first frame preview">
+                  <span class="youtube-play-label">▶ Play video</span>
+                </button>
+              </div>
+              <div id="hotChocolateCroissantYoutubeEmbed" class="youtube-embed-wrap youtube-frame youtube-frame--portrait" hidden>
+                <iframe
+                  id="hotChocolateCroissantYoutubePlayer"
+                  title="Hot Chocolate and Butter Croissant on YouTube"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerpolicy="strict-origin-when-cross-origin"
+                  allowfullscreen
+                ></iframe>
+              </div>
+            </div>
+            <p id="hotChocolateCroissantYoutubeLocalNote" class="youtube-facade-note" hidden>
+              For the embedded player, open this site with Live Server or GitHub Pages. You can still play via the button (opens YouTube).
+            </p>
+            <p>
+              <a class="video-file-link" href="https://youtube.com/shorts/lJZeZPLDKJ4" target="_blank" rel="noopener noreferrer">Watch on YouTube</a>
+            </p>
+          </div>
+        </div>
+      </li>
+
       <li class="video-item video-category" id="common-lunch-dinner">
         <h2>Common Lunch/Dinner</h2>
         <ul class="video-thumb-grid">
@@ -610,6 +650,26 @@
 
       var sections = [
         setupYoutubeSection({
+          videoId: "lJZeZPLDKJ4",
+          watchUrl: "https://youtube.com/shorts/lJZeZPLDKJ4",
+          posterId: "hotChocolateCroissantYoutubePoster",
+          thumbId: "hotChocolateCroissantYoutubeThumb",
+          posterUrls: [
+            "images/HotChocolateCroissant_Cover.png",
+            "https://i.ytimg.com/vi/lJZeZPLDKJ4/oardefault.jpg",
+            "https://i.ytimg.com/vi/lJZeZPLDKJ4/hq2.jpg",
+            "https://i.ytimg.com/vi/lJZeZPLDKJ4/maxresdefault.jpg",
+            "https://i.ytimg.com/vi/lJZeZPLDKJ4/hqdefault.jpg",
+          ],
+          facadeId: "hotChocolateCroissantYoutubeFacade",
+          playBtnId: "hotChocolateCroissantYoutubePlayBtn",
+          embedWrapId: "hotChocolateCroissantYoutubeEmbed",
+          iframeId: "hotChocolateCroissantYoutubePlayer",
+          localNoteId: "hotChocolateCroissantYoutubeLocalNote",
+          sectionId: "hot-chocolate-croissant-video",
+          playKey: "hot-chocolate-croissant",
+        }),
+        setupYoutubeSection({
           videoId: "KrnAx9nodog",
           watchUrl: "https://youtube.com/shorts/KrnAx9nodog",
           posterId: "goodVsBadSpikeYoutubePoster",
@@ -796,6 +856,8 @@
           deepLinkTarget = hash;
         } else if (hash === "common-lunch-dinner") {
           deepLinkTarget = "subway-video";
+        } else if (hash === "common-breakfast-items") {
+          deepLinkTarget = "hot-chocolate-croissant-video";
         }
       }
       if (!deepLinkTarget && playParam) {
